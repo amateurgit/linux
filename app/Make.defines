@@ -1,0 +1,4 @@
+CC 	= gcc
+CFLAGS  = -Wall -O2 -I$(ROOT)/include
+LIBS	= -lpthread
+BIN     = $(ROOT)/bin

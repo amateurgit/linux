@@ -1,0 +1,30 @@
+1. 编写源代码
+
+    section.c
+
+2. 设计链接脚本
+
+    "ld --verbose" 查看默认链接脚本, 将其保存为 ldscript.lds
+
+    只保留 "============"，之间的缺省链接脚本
+
+    在 .bss 数据段之前添加自定义数据段:
+
+    	_init_start = .;
+
+	.myinit : { *(.myinit) }
+
+	_init_end = .;
+
+3. 编译
+
+    编译
+    	cc -c section.c -o section.o
+
+    链接
+       gcc -T ldscript.lds section.o -o section 
+
+
+4. 测试
+
+    ./section

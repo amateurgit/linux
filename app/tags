@@ -1,0 +1,46 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DEPS	src/Makefile	/^DEPS   = $(patsubst %.c,%.d, $(SRCS))$/;"	m
+DIR	Makefile	/^DIR = src$/;"	m
+DIRS	src/Makefile	/^DIRS   = $(shell find . -type d)$/;"	m
+LOCKFILE	src/daemon/daemon.c	18;"	d	file:
+LOCKMODE	src/daemon/daemon.c	19;"	d	file:
+MAXLINE	src/error/error.c	7;"	d	file:
+Multithread	src/main.c	12;"	d	file:
+OBJS	src/Makefile	/^OBJS   = $(patsubst %.c, %.o, $(SRCS))$/;"	m
+ROOT	src/Makefile	/^ROOT = ..$/;"	m
+SRCS	src/Makefile	/^SRCS   = $(foreach dir, $(DIRS), $(wildcard $(dir)\/*.c))$/;"	m
+TARGET	src/Makefile	/^TARGET = main$/;"	m
+_DAEMON_H	include/daemonize.h	2;"	d
+_ERROR_H	include/error.h	2;"	d
+_FILE_H	include/file.h	2;"	d
+_IPC_H	include/ipc.h	2;"	d
+already_running	src/daemon/daemon.c	/^already_running(void)$/;"	f
+daemonize	src/daemon/daemon.c	/^daemonize(const char *cmd)$/;"	f
+err_cont	src/error/error.c	/^err_cont(int error, const char *fmt, ...)$/;"	f
+err_doit	src/error/error.c	/^err_doit(int errnoflag, int error, const char *fmt, va_list ap)$/;"	f	file:
+err_dump	src/error/error.c	/^err_dump(const char *fmt, ...)$/;"	f
+err_exit	src/error/error.c	/^err_exit(int error, const char *fmt, ...)$/;"	f
+err_msg	src/error/error.c	/^err_msg(const char *fmt, ...)$/;"	f
+err_quit	src/error/error.c	/^err_quit(const char *fmt, ...)$/;"	f
+err_ret	src/error/error.c	/^err_ret(const char *fmt, ...)$/;"	f
+err_sys	src/error/error.c	/^err_sys(const char *fmt, ...)$/;"	f
+is_read_lockable	include/file.h	20;"	d
+is_write_lockable	include/file.h	22;"	d
+lock_reg	src/file/file.c	/^lock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len)$/;"	f
+lock_test	src/file/file.c	/^lock_test(int fd, int type, off_t offset, int whence, off_t len)$/;"	f
+lockfile	include/file.h	25;"	d
+main	src/main.c	/^main(int argc, char *argv[])$/;"	f
+mask	src/main.c	/^sigset_t mask;$/;"	v
+read_lock	include/file.h	8;"	d
+readw_lock	include/file.h	10;"	d
+reread	src/main.c	/^reread(void)$/;"	f
+set_cloexec	src/file/file.c	/^set_cloexec(int fd)$/;"	f
+thr_fn	src/main.c	/^thr_fn(void *arg)$/;"	f
+un_lock	include/file.h	16;"	d
+write_lock	include/file.h	12;"	d
+writew_lock	include/file.h	14;"	d
