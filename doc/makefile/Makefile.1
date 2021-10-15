@@ -1,0 +1,31 @@
+ifdef DEFINE_VER
+	VER = "hello world!"
+endif
+
+ifeq ($(OPT), define)
+	VER ?= "hello world!first"
+endif
+
+ifeq ($(OPT), add)
+	VER += "Kelly"
+endif
+
+ifeq ($(OPT),recover)
+	VER := "hello world!Again!"
+endif
+
+ifeq ($(OPT), 1)
+	x   =  foo
+	VER = $(x) bar
+	x   = xyz
+endif
+
+
+ifeq ($(OPT), 2)
+	x   :=  foo
+	VER := $(x) bar
+	x   := xyz
+endif
+
+all:
+	@echo $(VER)
