@@ -455,6 +455,15 @@ struct proc_dir_entry *proc_mkdir_mode(const char *name, umode_t mode,
 }
 EXPORT_SYMBOL(proc_mkdir_mode);
 
+/*
+ * 功能 : proc 中创建一个文件夹
+
+ * 参数 :
+ *        name   文件夹名
+          parent 父文件夹，即文件路径。NULL 表示在 /proc 下创建
+
+ * 返回 : 创建的文件夹路径	  
+ */
 struct proc_dir_entry *proc_mkdir(const char *name,
 		struct proc_dir_entry *parent)
 {
@@ -625,6 +634,15 @@ void *proc_get_parent_data(const struct inode *inode)
 }
 EXPORT_SYMBOL_GPL(proc_get_parent_data);
 
+
+/*
+ * 功能 : /proc 目录下的文件夹或文件
+
+ * 参数 :
+ *        de 删除的文件夹或文件路径
+
+ * 返回 : 无 
+ */
 void proc_remove(struct proc_dir_entry *de)
 {
 	if (de)

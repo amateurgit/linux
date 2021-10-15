@@ -27,6 +27,18 @@ extern struct proc_dir_entry *proc_create_data(const char *, umode_t,
 					       const struct file_operations *,
 					       void *);
 
+
+/*
+ * 功能 : proc 中创建一个文件
+
+ * 参数 :
+ *        name      创建的文件名
+          mode      文件的读写权限
+          parent    创建的文件路径，即在哪个文件夹中创建，如果是proc根目录，此参数为NULL
+          proc_fops 文件操作指针
+
+ * 返回 : 创建的文件路径	  
+ */
 static inline struct proc_dir_entry *proc_create(
 	const char *name, umode_t mode, struct proc_dir_entry *parent,
 	const struct file_operations *proc_fops)

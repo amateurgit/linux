@@ -1409,6 +1409,7 @@ static int arp_seq_open(struct inode *inode, struct file *file)
 			    sizeof(struct neigh_seq_state));
 }
 
+/* 文件操作指针 */
 static const struct file_operations arp_seq_fops = {
 	.owner		= THIS_MODULE,
 	.open           = arp_seq_open,
@@ -1417,7 +1418,14 @@ static const struct file_operations arp_seq_fops = {
 	.release	= seq_release_net,
 };
 
+/*
+ * 功能 : proc 中注册 arp 协议文件 /proc/net/arp
 
+ * 参数 : 
+          net 创建文件的路径 
+
+ * 返回值 : int 类型
+ */
 static int __net_init arp_net_init(struct net *net)
 {
 	if (!proc_create("arp", S_IRUGO, net->proc_net, &arp_seq_fops))
