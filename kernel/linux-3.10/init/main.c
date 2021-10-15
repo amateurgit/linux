@@ -468,6 +468,7 @@ static void __init mm_init(void)
 	vmalloc_init();
 }
 
+/* init-step1 */
 asmlinkage void __init start_kernel(void)
 {
 	char * command_line;
