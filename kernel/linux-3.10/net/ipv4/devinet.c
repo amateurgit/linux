@@ -2167,9 +2167,9 @@ static struct ctl_table ctl_forward_entry[] = {
 	{
 		.procname	= "ip_forward",
 		.data		= &ipv4_devconf.data[
-					IPV4_DEVCONF_FORWARDING - 1],
+					IPV4_DEVCONF_FORWARDING - 1], // 通过 ip_forward 文件输出的内核变量
 		.maxlen		= sizeof(int),
-		.mode		= 0644,
+		.mode		= 0644,	//任何人都可以读取，只有超级用户可以写
 		.proc_handler	= devinet_sysctl_forward,
 		.extra1		= &ipv4_devconf,
 		.extra2		= &init_net,

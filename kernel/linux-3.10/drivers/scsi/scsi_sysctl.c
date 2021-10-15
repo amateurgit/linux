@@ -11,7 +11,6 @@
 #include "scsi_logging.h"
 #include "scsi_priv.h"
 
-
 static ctl_table scsi_table[] = {
 	{ .procname	= "logging_level",
 	  .data		= &scsi_logging_level,
@@ -37,6 +36,7 @@ static ctl_table scsi_root_table[] = {
 
 static struct ctl_table_header *scsi_table_header;
 
+/* 注册 scsi 内核文件 */
 int __init scsi_init_sysctl(void)
 {
 	scsi_table_header = register_sysctl_table(scsi_root_table);

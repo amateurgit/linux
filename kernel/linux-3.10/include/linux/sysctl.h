@@ -39,9 +39,10 @@ typedef struct ctl_table ctl_table;
 typedef int proc_handler (struct ctl_table *ctl, int write,
 			  void __user *buffer, size_t *lenp, loff_t *ppos);
 
-extern int proc_dostring(struct ctl_table *, int,
+/* 一下一组函数作为 proc_handler 参数， 用于读写 /proc/sys 文件操作 */
+extern int proc_dostring(struct ctl_table *, int,		/* 读/写 一个字符串 */
 			 void __user *, size_t *, loff_t *);
-extern int proc_dointvec(struct ctl_table *, int,
+extern int proc_dointvec(struct ctl_table *, int,		/* 读 / 写 一个包含一个或多个整数的数组 */
 			 void __user *, size_t *, loff_t *);
 extern int proc_dointvec_minmax(struct ctl_table *, int,
 				void __user *, size_t *, loff_t *);
@@ -106,15 +107,15 @@ static inline void *proc_sys_poll_event(struct ctl_table_poll *poll)
 /* A sysctl table is an array of struct ctl_table: */
 struct ctl_table 
 {
-	const char *procname;		/* Text ID for /proc/sys, or zero */
+	const char *procname;		/* Text ID for /proc/sys, or zero */	/* /proc/sys 中所使用的文件名 */
 	void *data;
-	int maxlen;
-	umode_t mode;
-	struct ctl_table *child;	/* Deprecated */
-	proc_handler *proc_handler;	/* Callback for text formatting */
+	int maxlen;			/* 输出的内核变量尺寸大小  */
+	umode_t mode;			/* 分派给 /proc/sys 中相关联的文件或目录的访问权限 */
+	struct ctl_table *child;	/* Deprecated */ /* 用于建立目录与文件间的关系 */
+	proc_handler *proc_handler;	/* Callback for text formatting */ /* 当你在 /proc/sys 中读取或写入一个文件时，完成读取或写入操作的函数 */
 	struct ctl_table_poll *poll;
-	void *extra1;
-	void *extra2;
+	void *extra1;			/* 可选参数，通常用于定义变量的最小值  */
+	void *extra2;			/* 可选参数，通常用于定义变量的最大值  */
 };
 
 struct ctl_node {
