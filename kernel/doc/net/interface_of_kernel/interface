@@ -26,3 +26,15 @@
 			协议族   : PF_NETLINK
 
 			协议类型 : 只支持 SOCK_DGRAM 
+
+
+/proc 文件系统
+
+	/porc/net	网络代码注册文件(内核文件)
+
+		i. 网络功能初始化    -->    注册文件    -->    /proc/net
+
+		ii. 用户访问 /proc/net 文件    -->    间接运行网络代码注册的函数    -->    返回特定数据
+
+
+	/proc/sys	内核变量	
