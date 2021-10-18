@@ -779,7 +779,7 @@ static void __init do_basic_setup(void)
 	init_irq_proc();
 	do_ctors();
 	usermodehelper_enable();
-	do_initcalls();
+	do_initcalls();	/* 初始化内核子系统及内建的设备驱动程序 */
 }
 
 static void __init do_pre_smp_initcalls(void)
