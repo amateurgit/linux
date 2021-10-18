@@ -801,6 +801,7 @@ void __init load_default_modules(void)
 	load_default_elevator_module();
 }
 
+/* 确定在系统上运行的第一个进程 */
 static int run_init_process(const char *init_filename)
 {
 	argv_init[0] = init_filename;
