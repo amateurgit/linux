@@ -555,7 +555,7 @@ asmlinkage void __init start_kernel(void)
 	tick_init();
 	init_timers();
 	hrtimers_init();
-	softirq_init();
+	softirq_init();	/* 软中断初始化 */
 	timekeeping_init();
 	time_init();
 	profile_init();
