@@ -371,6 +371,7 @@ static noinline void __init_refok rest_init(void)
 	 * the init task will end up wanting to create kthreads, which, if
 	 * we schedule it before we create kthreadd, will OOPS.
 	 */
+	/* init-step2 : start_kernel 执行完，后续的初始化工作交给了 init 线程 */
 	kernel_thread(kernel_init, NULL, CLONE_FS | CLONE_SIGHAND);
 	numa_default_policy();
 	pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);
@@ -468,7 +469,7 @@ static void __init mm_init(void)
 	vmalloc_init();
 }
 
-/* init-step1 */
+/* init-step1 : 内核引导时，执行 start_kernel 对子系统执行初始化 */
 asmlinkage void __init start_kernel(void)
 {
 	char * command_line;
@@ -811,7 +812,7 @@ static noinline void __init kernel_init_freeable(void);
 
 static int __ref kernel_init(void *unused)
 {
-	kernel_init_freeable();
+	kernel_init_freeable();	// do_basic_setup
 	/* need to finish all async __init code before freeing the memory */
 	async_synchronize_full();
 	free_initmem();
