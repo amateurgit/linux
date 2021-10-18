@@ -1332,6 +1332,7 @@ EXPORT_SYMBOL_GPL(remove_irq);
  *
  *	This function must not be called from interrupt context.
  */
+/* 卸载硬件中断的处理例程 */
 void free_irq(unsigned int irq, void *dev_id)
 {
 	struct irq_desc *desc = irq_to_desc(irq);
@@ -1392,6 +1393,7 @@ EXPORT_SYMBOL(free_irq);
  *	IRQF_TRIGGER_*		Specify active edge(s) or level
  *
  */
+/* 注册硬件中断的处理例程 */
 int request_threaded_irq(unsigned int irq, irq_handler_t handler,
 			 irq_handler_t thread_fn, unsigned long irqflags,
 			 const char *devname, void *dev_id)
