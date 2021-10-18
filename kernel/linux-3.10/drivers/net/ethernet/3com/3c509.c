@@ -57,6 +57,8 @@
 			- Introduce driver model for EISA cards.
 		v1.20  04Feb2008 Ondrej Zary <linux@rainbow-software.org>
 			- convert to isa_driver and pnp_driver and some cleanups
+
+		非 DMA 方式，即同步传输 
 */
 
 #define DRV_NAME	"3c509"

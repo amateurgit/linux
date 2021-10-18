@@ -16,6 +16,7 @@
 	Scyld Computing Corporation
 	410 Severn Ave., Suite 210
 	Annapolis MD 21403
+	DMA 方式, 即异步方式
 
 */
 
