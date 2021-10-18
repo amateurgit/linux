@@ -717,6 +717,7 @@ el3_start_xmit(struct sk_buff *skb, struct net_device *dev)
 	int ioaddr = dev->base_addr;
 	unsigned long flags;
 
+	/* 帧传输之前先关闭 NIC 出口队列 */
 	netif_stop_queue (dev);
 
 	dev->stats.tx_bytes += skb->len;
@@ -763,11 +764,11 @@ el3_start_xmit(struct sk_buff *skb, struct net_device *dev)
 	/* ... and the packet rounded to a doubleword. */
 	outsl(ioaddr + TX_FIFO, skb->data, (skb->len + 3) >> 2);
 
-	if (inw(ioaddr + TX_FREE) > 1536)
-		netif_start_queue(dev);
+	if (inw(ioaddr + TX_FREE) > 1536)	/* 检查设备分配的内存是否有足够的空间容纳一个 1536 字节的包 */
+		netif_start_queue(dev);		/* 打开设备队列 */
 	else
 		/* Interrupt us when the FIFO has room for max-sized packet. */
-		outw(SetTxThreshold + 1536, ioaddr + EL3_CMD);
+		outw(SetTxThreshold + 1536, ioaddr + EL3_CMD);	/* 当 FIFO 有内存空间时， 中断 */
 
 	spin_unlock_irqrestore(&lp->lock, flags);
 
