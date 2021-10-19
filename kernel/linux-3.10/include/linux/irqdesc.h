@@ -37,6 +37,7 @@ struct irq_desc;
  * @dir:		/proc/irq/ procfs entry
  * @name:		flow handler name for /proc/interrupts output
  */
+/* 硬件中断向量表 */
 struct irq_desc {
 	struct irq_data		irq_data;
 	unsigned int __percpu	*kstat_irqs;
