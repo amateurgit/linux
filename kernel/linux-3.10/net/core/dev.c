@@ -6258,6 +6258,7 @@ static struct pernet_operations __net_initdata default_device_ops = {
  *       This is called single threaded during boot, so no need
  *       to take the rtnl semaphore.
  */
+/* 网路代码初始化 */
 static int __init net_dev_init(void)
 {
 	int i, rc = -ENOMEM;
