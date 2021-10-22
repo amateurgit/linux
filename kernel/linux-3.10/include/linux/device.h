@@ -90,7 +90,7 @@ extern void bus_remove_file(struct bus_type *, struct bus_attribute *);
  * default attributes, the bus' methods, PM operations, and the driver core's
  * private data.
  */
-struct bus_type {
+struct bus_type {/* Linux 设备模型-总线 */
 	const char		*name;
 	const char		*dev_name;
 	struct device		*dev_root;
@@ -210,7 +210,7 @@ extern struct klist *bus_get_device_klist(struct bus_type *bus);
  * can export information and configuration variables that are independent
  * of any specific device.
  */
-struct device_driver {
+struct device_driver {/* Linux 设备模型-驱动 */
 	const char		*name;
 	struct bus_type		*bus;
 
@@ -657,7 +657,7 @@ struct acpi_dev_node {
  * instead, that structure, like kobject structures, is usually embedded within
  * a higher-level representation of the device.
  */
-struct device {
+struct device {/* Linux 设备模型-设备 */
 	struct device		*parent;
 
 	struct device_private	*p;
