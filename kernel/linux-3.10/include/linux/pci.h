@@ -229,7 +229,7 @@ struct pci_ats;
 /*
  * The pci_dev structure is used to describe PCI devices.
  */
-struct pci_dev {
+struct pci_dev {//PCI 设备实例
 	struct list_head bus_list;	/* node in per-bus list */
 	struct pci_bus	*bus;		/* bus this device is on */
 	struct pci_bus	*subordinate;	/* bus this device bridges to */
@@ -586,21 +586,22 @@ struct pci_error_handlers {
 /* ---------------------------------------------------------------- */
 
 struct module;
+/* 定义 PCI 层和设备驱动之间的接口 */
 struct pci_driver {
 	struct list_head node;
-	const char *name;
-	const struct pci_device_id *id_table;	/* must be non-NULL for probe to be called */
-	int  (*probe)  (struct pci_dev *dev, const struct pci_device_id *id);	/* New device inserted */
-	void (*remove) (struct pci_dev *dev);	/* Device removed (NULL if not a hot-plug capable driver) */
+	const char *name;	/* 驱动程序名 */
+	const struct pci_device_id *id_table;	/* must be non-NULL for probe to be called */	/* ID 向量，内核用于将一些设备关联到此驱动程序 */
+	int  (*probe)  (struct pci_dev *dev, const struct pci_device_id *id);	/* New device inserted */	
+	void (*remove) (struct pci_dev *dev);	/* Device removed (NULL if not a hot-plug capable driver) */	/* 驱动程序从内核除名，或者可热插拔设备被删除时，调用 */
 	int  (*suspend) (struct pci_dev *dev, pm_message_t state);	/* Device suspended */
 	int  (*suspend_late) (struct pci_dev *dev, pm_message_t state);
 	int  (*resume_early) (struct pci_dev *dev);
-	int  (*resume) (struct pci_dev *dev);	                /* Device woken up */
+	int  (*resume) (struct pci_dev *dev);	                /* Device woken up */	/* 设备由挂起模式重新继续时调用 */
 	void (*shutdown) (struct pci_dev *dev);
 	int (*sriov_configure) (struct pci_dev *dev, int num_vfs); /* PF pdev */
 	const struct pci_error_handlers *err_handler;
 	struct device_driver	driver;
-	struct pci_dynids dynids;
+	struct pci_dynids dynids;	/* 动态ID */
 };
 
 #define	to_pci_driver(drv) container_of(drv, struct pci_driver, driver)
