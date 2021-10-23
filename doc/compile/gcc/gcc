@@ -1,3 +1,193 @@
+########################################## 1. 基础知识  ####################################################
+
+文件扩展名
+
+.c	C 语言源文件
+.h	C 语言头文件
+.i	预处理后的 C 文件
+.C	C++ 语言源文件
+.cc	C++ 语言源文件
+.cxx	C++ 语言源文件
+.m	Objective C 语言源文件
+.s	汇编语言源文件
+.o	汇编后的目标文件
+.a	静态库
+.so	共享库
+a.out	链接后的输出文件
+
+
+编译器
+
+cc	C 语言编译器
+gcc	C 语言编译器
+cpp	预处理器
+g++	C++ 编译器
+
+
+头文件路径(按照先后顺序查找)
+
+/usr/local/include
+/usr/lib/gcc/x86_64-linux-gnu/10/include/
+/usr/include
+
+库文件路径(按照先后顺序查找)
+/usr/lib/gcc/...
+/lib/x86_64-linux-gnu/
+/lib/
+/usr/lib/x86_64-linux-gnu/
+/usr/lib
+
+
+
+
+
+
+
+
+########################################## 2. 编译 ####################################################
+
+预处理
+	gcc -o string.i -E string.c	// 生成预处理文件 string.i
+
+
+汇编
+	gcc -S string.i			// 生成汇编源文件 string.s
+
+
+编译
+
+	gcc -o string.o -c string.s	// 生成目标文件 string.o
+
+
+静态库
+
+	ar -rcs libstr.a string.o	// 生成静态库 libstr.a
+       				       	   -r	 静态库中插入模块 string.o。当插入的模块名已经在库中存在，则替换同名的模块。
+					   -c	 创建一个库。
+					   -s	 创建索引
+
+	gcc -o test main.c -L./ -lstr	// 使用静态库。				   
+
+	ar t libstr.a			// 显示库中有哪些模块
+
+
+动态库
+	
+	生成
+
+		gcc -shared -Wl,-soname,libstr.so -o libstr.so.1 string.s	// 生成动态库
+
+	安装
+
+		方式一 : 将动态库保存到系统默认搜索路径
+
+			/lib	/usr/lib	/usr/local/lib
+
+		方式二 : 配置文件的形式告知编译器动态库的路径
+
+			/etc/ld.so.conf
+
+	管理
+
+		ldconfig	系统的默认搜路径和配置文件列出的目录中搜索动态链接库，
+				创建动态链接装入程序需要的连接和缓存文件，
+				将结果存入缓存文件,文件中保存的是已经排好序的动态链接库名字列表
+				/etc/ld.so.cache
+
+		ldconfig -p	// 列出缓存文件中所有共享库名字列表
+
+		ldconfig -v	// ldconfig 运行过程中扫描到的目录和共享库信息显示到终端，并刷新到缓存文件
+
+	使用
+
+		gcc -o test main.c -lstr	
+
+	动态加载库
+
+		一般动态链接库在程序启动的时候就要寻找动态库，找到库函数；
+		动态链接库可以用程序的方法控制什么时候加载
+
+		dlopen()	打开动态库
+		dlsym()		获得函数指针
+		dlerror()
+		dlclose()
+
+/* 文件 string.c */
+#define ENDSTRING '\0'				/* 定义字符串 */
+int StrLen(char *string)
+{
+	int len = 0;
+
+	while(*string++ != ENDSTRING)		/* 当 *string 的值为 '\0' 时，停止计算 */
+		len++;
+
+	return len;				/* 返回此值 */
+}
+
+
+/* 文件 main.c */
+#include <stdio.h>
+extern int StrLen(char * str);				/* 声明 StrLen 函数 */
+int main(void)
+{
+	char src[] = "Hello Dymatic";			/* 字符串 */
+
+	printf("string length is : %d\n", StrLen(src));	/* 计算 src 的长度，将结果打印出来 */
+
+	return 0;
+}
+
+
+/* 动态加载库的示例 */
+#include <stdio.h>
+#include <dlfcn.h>	/* 动态加载库头文件 */
+int main(void)
+{
+	char src[] = "Hello Dymatic";		/* 要计算的字符串 */
+
+	int (*pStrLenFun)(char *str);		/* 函数指针 */
+	void *phandle = NULL;			/* 库句柄 */
+	char *perr = NULL;			/* 错误信息指针 */
+	phandle = dlopen("./libstr.so", RTLD_LAZY);	/* 打开 libstr.so 动态链接库 */
+	/*判断是否正确打开*/
+	if (!phandle)					/* 打开错误 */
+		printf("Failed Load Library\n");	/* 打印库不能加载信息 */
+
+	perr = dlerror();			/* 读取错误值 */
+	if (NULL != perr)			/* 存在错误 */
+	{
+		printf("%s\n", perr);
+		return 0;
+	}
+
+	pStrLenFun = dlsym(phandle, "StrLen");
+	perr = dlerror();			/* 读取错误值 */
+	if (NULL != perr)			/* 存在错误 */
+	{
+		printf("%s\n", perr);
+		return 0;
+	}
+
+	printf("string length is : %d\n", pStrLenFun(src)); /* 计算 src 的长度，将结果打印出来 */
+
+	dlclose(phandle);
+
+	return 0;
+}
+
+	gcc -o testdl main.c -ldl	/* 动态链接库编译 */
+
+
+########################################## 3. gcc 选项 ####################################################
+-E	预处理
+-S	汇编
+-c	生成目标文件
+-o	生成指定文件名
+-L	库搜索路径
+
+
+
+
 1. Get gcc build-in macros using command:
 
 	gcc -E -dM - </dev/null
