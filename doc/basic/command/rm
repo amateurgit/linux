@@ -1,0 +1,4 @@
+删除当前目录下除了 filename1 和 filename2 外所有的文件
+
+    shopt -s extglob
+    rm -v !("filename1"|"filename2")
