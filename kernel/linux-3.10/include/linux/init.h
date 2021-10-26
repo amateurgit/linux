@@ -307,7 +307,7 @@ void __init parse_early_options(char *cmdline);
 	void cleanup_module(void) __attribute__((alias(#exitfn)));
 
 #define __setup_param(str, unique_id, fn)	/* nothing */
-#define __setup(str, func) 			/* nothing */
+#define __setup(str, func) 			/* nothing */	/* 没有定义模块儿, 为 nothing */
 #endif
 
 /* Data marked not to be saved by software suspend */

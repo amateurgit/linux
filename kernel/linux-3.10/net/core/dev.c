@@ -634,6 +634,7 @@ int __init netdev_boot_setup(char *str)
 	return netdev_boot_setup_add(str, &map);
 }
 
+/* 注册关键字 */
 __setup("netdev=", netdev_boot_setup);
 
 /*******************************************************************************
