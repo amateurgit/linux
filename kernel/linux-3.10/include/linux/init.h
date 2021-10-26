@@ -244,6 +244,7 @@ struct obs_kernel_param {
 		__attribute__((aligned((sizeof(long)))))	\
 		= { __setup_str_##unique_id, fn, early }
 
+/* 注册关键字，即用于识别引导程序传递过来的字串参数 */
 #define __setup(str, fn)					\
 	__setup_param(str, fn, fn, 0)
 
