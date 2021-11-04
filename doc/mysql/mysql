@@ -1,0 +1,7 @@
+1. 登录
+    mysql -hhostname -uusername -ppassword -Pport -A
+
+    -A : 为自动补全功能预读表信息
+    
+    Reading table information for completion of table and column names
+    You can turn off this feature to get a quicker startup with -A
