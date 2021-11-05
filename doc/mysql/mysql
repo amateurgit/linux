@@ -5,3 +5,35 @@
     
     Reading table information for completion of table and column names
     You can turn off this feature to get a quicker startup with -A
+
+2. 设置密码
+
+    root 权限免密登录 mysql
+
+    设置 root 密码
+
+        # 查看密码验证策略
+        SHOW VARIABLES LIKE 'validate_password%';
+
+        # 调整验证规则
+        set global validate_password.policy=0;
+        set global validate_password.length=1;
+
+        # 设置密码
+        ALTER USER "root"@"localhost" IDENTIFIED WITH mysql_native_password BY "mysql";
+
+
+3. 远程登录
+
+    修改 user 表
+        use mysql;
+        update user set host = '%' where user = 'root';
+
+    修改配置文件
+        vim /etc/mysql/mysql.conf.d/mysqld.cnf
+        # bind-address          = 127.0.0.1
+
+
+4. 查看配置
+
+    mysql_config
