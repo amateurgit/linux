@@ -1125,8 +1125,8 @@ struct task_struct {
 	unsigned sched_reset_on_fork:1;
 	unsigned sched_contributes_to_load:1;
 
-	pid_t pid;
-	pid_t tgid;
+	pid_t pid;	/* 进程 ID, task_struct 实例的唯一标识, 对应用户层的线程 */
+	pid_t tgid;	/* 线程组 ID，对应用户层的进程 */
 
 #ifdef CONFIG_CC_STACKPROTECTOR
 	/* Canary value for the -fstack-protector gcc feature */
@@ -1144,7 +1144,7 @@ struct task_struct {
 	 */
 	struct list_head children;	/* list of my children */
 	struct list_head sibling;	/* linkage in my parent's children list */
-	struct task_struct *group_leader;	/* threadgroup leader */
+	struct task_struct *group_leader;	/* threadgroup leader */ /* 指向线程组组长 */
 
 	/*
 	 * ptraced is the list of tasks this task is using ptrace on.
