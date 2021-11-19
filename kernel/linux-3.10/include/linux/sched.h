@@ -1142,8 +1142,8 @@ struct task_struct {
 	/*
 	 * children/sibling forms the list of my natural children
 	 */
-	struct list_head children;	/* list of my children */
-	struct list_head sibling;	/* linkage in my parent's children list */
+	struct list_head children;	/* list of my children */	/* 子进程链表 */
+	struct list_head sibling;	/* linkage in my parent's children list */	/* 兄弟进程链表 */
 	struct task_struct *group_leader;	/* threadgroup leader */ /* 指向线程组组长 */
 
 	/*
