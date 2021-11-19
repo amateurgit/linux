@@ -47,14 +47,14 @@ enum pid_type
  * find_pid_ns() using the int nr and struct pid_namespace *ns.
  */
 
-struct upid {
+struct upid {	/* 特定的命名空间中可见的信息 */
 	/* Try to keep pid_chain in the same cacheline as nr for find_vpid */
-	int nr;
-	struct pid_namespace *ns;
-	struct hlist_node pid_chain;
+	int nr;	/* 特定命名空间中，pid 的值 */
+	struct pid_namespace *ns;	/* 所属命名空间 */
+	struct hlist_node pid_chain;	/* 散列溢出链表*/
 };
 
-struct pid
+struct pid	/* 内核对 pid 的内部表示 */
 {
 	atomic_t count;
 	unsigned int level;

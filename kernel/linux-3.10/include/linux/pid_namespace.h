@@ -25,10 +25,10 @@ struct pid_namespace {
 	struct pidmap pidmap[PIDMAP_ENTRIES];
 	int last_pid;
 	unsigned int nr_hashed;
-	struct task_struct *child_reaper;
+	struct task_struct *child_reaper;	/* 命名空间内的 init 进程，对孤儿进程调用 wait4 */
 	struct kmem_cache *pid_cachep;
-	unsigned int level;
-	struct pid_namespace *parent;
+	unsigned int level;			/* 命名空间的深度，初始命名空间 level = 0,下一层为 1，再下一层为 2 */
+	struct pid_namespace *parent;		/* 父命名空间 */
 #ifdef CONFIG_PROC_FS
 	struct vfsmount *proc_mnt;
 	struct dentry *proc_self;
