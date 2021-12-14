@@ -2298,7 +2298,7 @@ vortex_interrupt(int irq, void *dev_id)
 			}
 		}
 		/* Check for all uncommon interrupts at once. */
-		if (status & (HostError | RxEarly | StatsFull | TxComplete | IntReq)) {
+		if (status & (HostError | RxEarly | StatsFull | TxComplete | IntReq)) {		/* 设备中断原因有多种，好几种原因都归结于单一中断事件 */
 			if (status == 0xffff)
 				break;
 			if (status & RxEarly)
@@ -2361,7 +2361,7 @@ boomerang_interrupt(int irq, void *dev_id)
 	spin_lock(&vp->lock);
 	vp->handling_irq = 1;
 
-	status = ioread16(ioaddr + EL3_STATUS);
+	status = ioread16(ioaddr + EL3_STATUS);		/* 读取设备发生中断的 */
 
 	if (vortex_debug > 6)
 		pr_debug("boomerang_interrupt. status=0x%4x\n", status);
