@@ -442,14 +442,14 @@ struct signal_struct {
 
 	union {
 		pid_t pgrp __deprecated;
-		pid_t __pgrp;
+		pid_t __pgrp;	       /* 进程组 id */
 	};
 
 	struct pid *tty_old_pgrp;
 
 	union {
 		pid_t session __deprecated;
-		pid_t __session;
+		pid_t __session;	/* 会话 id */
 	};
 
 	/* boolean value for session group leader */
@@ -980,8 +980,8 @@ struct task_struct {
 	/* ??? */
 	unsigned int personality;
 	unsigned did_exec:1;
-	pid_t pid;
-	pid_t tgid;
+	pid_t pid;	/* 进程   id */
+	pid_t tgid;	/* 线程组 id */
 
 #ifdef CONFIG_CC_STACKPROTECTOR
 	/* Canary value for the -fstack-protector gcc feature */
@@ -1000,7 +1000,7 @@ struct task_struct {
 	 */
 	struct list_head children;	/* list of my children */
 	struct list_head sibling;	/* linkage in my parent's children list */
-	struct task_struct *group_leader;	/* threadgroup leader */
+	struct task_struct *group_leader;	/* threadgroup leader */	/* 通过 clone 创建的线程，group_leader 成员指向组长的 task_struct 实例 */
 
 	/* PID/PID hash table linkage. */
 	struct pid_link pids[PIDTYPE_MAX];
