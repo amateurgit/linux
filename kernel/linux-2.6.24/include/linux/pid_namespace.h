@@ -18,10 +18,10 @@ struct pid_namespace {
 	struct kref kref;
 	struct pidmap pidmap[PIDMAP_ENTRIES];
 	int last_pid;
-	struct task_struct *child_reaper;
+	struct task_struct *child_reaper;	/* 命名空间中，类似全局 init 进程，对孤儿进程调用 wait4 */
 	struct kmem_cache *pid_cachep;
-	int level;
-	struct pid_namespace *parent;
+	int level;				/* 命名空间层次结构中的深度 */
+	struct pid_namespace *parent;		/* 父命名空间 */
 #ifdef CONFIG_PROC_FS
 	struct vfsmount *proc_mnt;
 #endif
