@@ -16,7 +16,7 @@ struct pidmap {
 
 struct pid_namespace {
 	struct kref kref;
-	struct pidmap pidmap[PIDMAP_ENTRIES];	/* 特定命名空间下，所有进程 id 视图 */
+	struct pidmap pidmap[PIDMAP_ENTRIES];
 	int last_pid;
 	struct task_struct *child_reaper;	/* 命名空间中，类似全局 init 进程，对孤儿进程调用 wait4 */
 	struct kmem_cache *pid_cachep;
