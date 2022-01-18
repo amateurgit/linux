@@ -1,0 +1,13 @@
+/*************************************mysql 查询结果写入文件**********************************/
+方法 1
+	pager cat >> /tmp/pager.txt;
+	select host, user from mysql.user;
+	nopager;
+
+方法 2
+	show global variables like '%secure_file_priv%';
+	select host, user from mysql.user into outfile '/var/lib/mysql-files/outfile.txt';
+
+方法 3
+	mysql -h127.0.0.1 -P3306 -uroot -pmysql -e "select host, user from mysql.user;" >> /tmp/result.txt
+	mysql -h127.0.0.1 -P3306 -uroot -pmysql < "/tmp/my.sql" >> /tmp/result.txt	
