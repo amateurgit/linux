@@ -1,0 +1,29 @@
+下载
+
+    https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
+
+环境变量
+    vim /etc/profile
+    export JAVA_HOME=/usr/lib/jvm/jdk-17.0.1
+    export CLASSPATH=$JAVA_HOME/lib
+    export PATH=.:$JAVA_HOME/bin:$JAVA_HOME/lib:$PATH		# 手动启动一个程序， PATH 路径搜索，. 表示当前路径, 无需输入 ./a.out, 直接 a.out
+    source /etc/profile
+
+测试
+    java -version
+    javac -version
+    jshell --version
+
+    jshell
+    System.getProperty("os.name")
+    jshell> /exit
+
+    hello.java
+    public class hello {
+    	public static void main(String[] args){
+        	System.out.println("Hello world");
+    	}
+    }
+    java hello.java
+    
+
