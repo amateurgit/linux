@@ -1,0 +1,12 @@
+Package: xxxx							# 程序名称	
+Version: 1.1.0							# 软件版本 
+Description: xxxx						# 程序说明
+Section: utils, net, mail, text, x11				# 软件类别
+Priority: required, standard, optional, extra等 		# 软件对于系统的重要程度
+Essential: yes/no						# 是否是系统最基本的软件包若为,yes,则不允许卸载（除非强制性卸载）
+Architecture: i386, amd64, m68k, sparc, alpha, powerpc等	# 软件所支持的平台架构
+Source: xxxx 							# 软件包的源代码名称
+Depends: xxxx							# 软件所依赖的其他软件包和库文件,若依赖多个软件包和库文件，采用逗号隔开
+Pre-Depends: xxxx						# 软件安装前必须安装、配置依赖性的软件包和库文件常用于必须的预运行脚本需求
+Recommends: xxxx						# 推荐安装的其他软件包和库文件	 
+Suggests: xxxx							# 建议安装的其他软件包和库文件	

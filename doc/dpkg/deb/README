@@ -1,0 +1,10 @@
+############### 打包  ##############
+dpkg -b deb xxx.deb			# 将 deb 文件夹打包成 xxx.deb
+
+############## 安装 ###############
+dpkg -i xxx.deb
+dpkg --force-overwrite -i xxx.deb
+dpkg --force-depends -i xxx.deb
+
+############# 解包 ###############
+dpkg --unpack xxx.deb
