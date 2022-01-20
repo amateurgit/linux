@@ -7,4 +7,6 @@ dpkg --force-overwrite -i xxx.deb
 dpkg --force-depends -i xxx.deb
 
 ############# 解包 ###############
-dpkg --unpack xxx.deb
+dpkg --unpack xxx.deb			# 会安装
+dpkg -e xxx.deb				# 解压出 DEBIAN 文件夹
+dpkg -X xxx.deb dst_dir			# 解压出 升级数据包 到 文件夹 dst_dir
