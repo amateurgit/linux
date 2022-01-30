@@ -1,0 +1,9 @@
+1. 查看已安装程序列表
+
+    dpkg --list
+
+2. 卸载
+
+    sudo apt-get --purge remove <programme>
+
+    sudo apt-get  remove <programme> (保留配置文件)
