@@ -1,0 +1,12 @@
+1.查询系统运行等级
+    runlevel
+    N 5
+
+2.启动脚本 autorun.sh 放入 /etc/init.d 目录
+    autorun.sh示例代码:
+    #!/bin/bash
+    iptables-restore /etc/config/iptables.rulers
+
+3.添加软连接
+    cd /etc/rc5.d/
+    ln -vsf /etc/init.d/autorun.sh S99autorun
