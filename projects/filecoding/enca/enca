@@ -1,0 +1,15 @@
+1. 安装
+
+    libenca0 库
+
+    	http://mirrors.nju.edu.cn/ubuntu/pool/universe/e/enca/
+
+    enca 
+
+        https://dl.cihar.com/enca/
+
+2. 使用
+
+    enca -L chinese filepath	        # 显示文件编码
+
+    enca -x UTF-8 -L chinese filepath   # 文件编码转为为 UTF-8
