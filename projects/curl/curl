@@ -1,0 +1,18 @@
+curl
+
+    curl [options] urls
+
+        options
+
+            -k, --insecure			不校验 ssl 证书
+
+            -d, --data <data>			提交给服务器的数据使用单引号 ''
+
+            -X, --request <command>     	请求
+
+            -I, --head				指向服务器请求头部信息
+
+	    -i, --include               	Include the HTTP response headers in the output. 
+
+            -c, --cookie-jar <filename>		获取 cookie
+	    -b, --cookie <data|filename>	使用 cookie
