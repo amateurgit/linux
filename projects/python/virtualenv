@@ -1,0 +1,14 @@
+python 虚拟环境
+
+    apt-get install python3-vir
+
+    virtualenv scrapyEnv
+
+    cd scrapyEnv/
+
+    source bin/activate
+
+    ... 
+
+    deactivate
+
