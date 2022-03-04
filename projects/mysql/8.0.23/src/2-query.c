@@ -1,9 +1,3 @@
-/**
-  compile : gcc -o mysql_test query.c -I/usr/include/mysql -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -lssl -lcrypto -ldl -lresolv
-
-  mysql_config 可以查看 mysql 的头文件和库文件路径
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

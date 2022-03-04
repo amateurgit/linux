@@ -1,0 +1,7 @@
+1. 修改 user 表
+    use mysql;
+    update user set host = '%' where user = 'root';
+
+2. 修改配置文件
+    vim /etc/mysql/mysql.conf.d/mysqld.cnf
+    # bind-address          = 127.0.0.1

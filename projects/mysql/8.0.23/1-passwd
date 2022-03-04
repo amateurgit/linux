@@ -1,0 +1,13 @@
+1. root 权限免密登录 mysql
+
+2. 设置 root 密码
+
+    # 查看密码验证策略
+    SHOW VARIABLES LIKE 'validate_password%';
+
+    # 调整验证规则
+    set global validate_password.policy=0;
+    set global validate_password.length=1;
+
+    # 设置密码
+    ALTER USER "root"@"localhost" IDENTIFIED WITH mysql_native_password BY "mysql";
