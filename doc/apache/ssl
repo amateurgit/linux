@@ -1,0 +1,17 @@
+1. 生成自签名证书
+
+    openssl genrsa -out server.key 2048
+    openssl req -x509 -days 365 -key server.key -out server.crt
+
+2. 配置
+
+    修改 httpd 配置文件
+        /usr/local/apache2/conf/httpd.conf
+        LoadModule ssl_module modules/mod_ssl.so    # 使能 ssl 模块
+        Include conf/extra/httpd-ssl.conf
+
+
+    配置证书路径
+        /usr/local/apache2/conf/extra/httpd-ssl.conf
+        SSLCertificateFile "/usr/local/apache2/conf/server.crt"
+        SSLCertificateKeyFile "/usr/local/apache2/conf/server.key"
