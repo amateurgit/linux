@@ -1,0 +1,41 @@
+1. 下载
+
+    官网:
+
+        https://httpd.apache.org/
+
+    软件列表:
+
+	httpd-2.4.53.tar.bz2
+        apr-1.7.0.tar.bz2
+	apr-util-1.6.1.tar.bz2
+	apr-iconv-1.2.2.tar.bz2
+
+2. 安装
+
+    依赖库
+        
+        libpcre3
+        
+        libpcre3-dev
+        
+        libexpat1
+        
+        libexpat1-dev
+        
+    httpd
+        
+        apr-1.7.0.tar.bz2 解压到 srclib/apr
+        
+        apr-util-1.6.1.tar.bz2 解压到 srclib/apr-util
+        
+        ./configure --with-included-apr
+        
+        make
+        
+        make install
+
+
+3. 启动
+
+    /usr/local/apache2/bin/apachectl -k start
