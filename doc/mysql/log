@@ -1,0 +1,5 @@
+show variables like '%general%';
+
+SET GLOBAL general_log = 'On';  #开启日志
+
+SET GLOBAL general_log_file = '/var/lib/mysql/mysql.log'; #指定日志文件

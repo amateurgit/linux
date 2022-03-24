@@ -1,0 +1,39 @@
+USE cm_syslog;
+
+DELIMITER $$    -- 修改语句结束符为 $$
+
+DROP PROCEDURE IF EXISTS del_partition$$   -- 删除存储过程
+
+CREATE PROCEDURE del_partition(IN dateTime INT(11))   -- 创建存储过程
+BEGIN -- 存储过程起点
+    -- 变量声明
+    declare tableName VARCHAR(128);
+    declare parName VARCHAR(128);
+    declare dt INT(11);
+    declare c INT(11);
+    declare sql_buff VARCHAR(128);
+
+    -- 游标遍历查询结果
+    declare cur CURSOR FOR SELECT TABLE_NAME, PARTITION_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA = 'cm_syslog' AND PARTITION_NAME IS NOT NULL;
+    declare EXIT HANDLER FOR NOT FOUND CLOSE cur;
+    
+    OPEN cur;
+    FETCH cur INTO tableName, parName;
+    WHILE (parName IS NOT NULL) DO
+	SELECT COUNT(*) FROM INFORMATION_SCHEMA.PARTITIONS WHERE (TABLE_SCHEMA = 'cm_syslog') AND (PARTITION_NAME IS NOT NULL) AND (TABLE_NAME = tableName) INTO c;
+        SELECT tableName, parName, c; 
+        SELECT SUBSTRING_INDEX(parName, '_', -1) INTO dt;   -- 分割，获取日期
+	IF dt < dateTime AND c > 1 THEN   -- 日期比较
+	    set @sql_buff = CONCAT('ALTER TABLE ', tableName, ' DROP PARTITION ', parName);
+	    SELECT @sql_buff;
+	    PREPARE stmt FROM @sql_buff;
+	    EXECUTE stmt;  -- 删除分区
+	END IF;
+
+	FETCH cur INTO tableName, parName;
+    END WHILE;
+
+    CLOSE cur;
+END$$ -- 存储过程终点
+
+DELIMITER ;    -- 恢复语句结束符为分号 ;
