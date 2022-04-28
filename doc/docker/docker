@@ -1,0 +1,38 @@
+拉取镜像
+    docker pull ubuntu:16.10
+
+查看本地镜像
+    docker images
+
+启动运行一个镜像实例
+    docker run -itd -p 442:442 -p 443:443 -p 514:514 -p 541:541 ubuntu:centmgmt /bin/bash
+    i - 允许对容器内的标准输入 (STDIN) 进行交互
+    t - 在新容器内指定一个伪终端或终端
+    d - 后台运行
+
+查看实例
+    docker ps           # 正在运行的实例
+    docker ps -a        # 查看所有实例
+
+切换到容器
+    docker exec -it blissful_faraday /bin/bash
+
+提交镜像
+    docker commit -m="sources.list;Dependency library;vim" -a sjwang blissful_faraday ubuntu:platform
+
+打包镜像
+   tar -cvpzf centmgmt.tar --exclude=proc --exclude=sys --exclude=run --exclude=centmgmt.tar .
+
+导入导出
+    导入容器
+        docker import centmgmt.tar ubuntu:centmgmt
+
+    导出容器
+        docker export lucid_albattani > centmgmt_1.0.tar
+
+    导出镜像
+        docker save 0fdf2b4c26d3 > centmgmt.tar
+
+    导入镜像
+        docker load < centmgmt.tar
+
