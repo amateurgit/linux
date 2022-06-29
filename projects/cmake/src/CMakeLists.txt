@@ -1,0 +1,2 @@
+PROJECT(HELLO C)
+ADD_EXECUTABLE(hello main.c)
