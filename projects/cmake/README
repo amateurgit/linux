@@ -1,0 +1,23 @@
+1. cmake 流程
+
+    编写 CMakeLists.txt -> 执行 cmake 生成 Makefile -> 执行 Make 编译程序
+
+2. 示例
+
+    step 1 :
+        mkdir src
+	mkdir src-build
+
+    step 2 :
+    	src 目录下
+	    main.c
+	    CMakeLists.txt
+	src-build 目录下执行
+	    cmake ../src
+	    生成文件列表 
+	    	CMakeCache.txt  CMakeFiles  cmake_install.cmake  Makefile
+
+    step 3 :
+    	make
+	生成可执行文件
+	    hello
