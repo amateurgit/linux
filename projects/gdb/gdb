@@ -1,0 +1,94 @@
+1. core 文件
+
+   ulimit -c unlimited	// ulimit --help
+
+   echo "core_%e_%p_%t" > /proc/sys/kernel/core_pattern  // man core
+
+2. gdb
+
+    编译
+        gcc -o test gdb.c -g	// 配置 -g 选项
+
+    加载程序
+   	gdb test
+	或者
+	gdb 进入环境，使用 file test 载入
+
+    设置程序参数(set args 参数1 参数2 ...)
+    	set args 3
+
+    打印代码内容(list 开始行号)
+   	list 1
+
+    设置断点(b 行号)
+	b 43
+
+    运行程序(run 参数列表), 前面设置程序参数后，直接执行 run 即可
+    	run 3
+
+    显示变量
+   	display i
+        display result
+	c 继续运行
+
+    修改变量的值
+        set result=6
+
+    退出
+	q    
+   
+常用命令总结
+
+    list		List[开始,结束]			列出文件代码清单	l
+    print		Printf p			打印变量内容		p
+    break		Break[行号|函数名]		设置断点		b
+    continue		Countine[开始,结束]		继续运行		c
+    info		Info para			列出信息		i
+    next		Next				下一行			n
+    step		Step				进入函数		S
+    display		Display para			显示参数
+    file		File path			加载文件
+    run			Run args			运行程序		r
+    set			set args 3 | set result=6	设置程序参数值或变量值
+    show 		show args			显示程序参数列表
+
+    whatis		whatis var			显示变量类型
+    ptype		ptype var			显示 struct 声明详情
+
+    backtrace						打印函数的调用路径
+
+
+断点的增删改查
+   增
+        break gdb.c:43	(多文件带上文件名)
+	break gdb.c:sum
+	break 43 if i==2 (条件断点)
+   查
+	info breakpoints
+
+   删
+	delete breakpoints	删除所有断点
+	delete breakpoints 4	删除某个断点
+	clear 39		清除源代码某一行所有断点
+
+        disable breakpoints 6
+	enable breakpoints 6	使能某个断点
+
+
+单步调试
+    next 	单步执行
+    step 	进入方法
+    finish 	跳出方法
+
+
+多线程调试
+   info threads		显示线程 ID 列表
+   thread ID		进入某个线程调试
+
+打印指定处的汇编代码
+   function sum 
+
+
+
+
+
