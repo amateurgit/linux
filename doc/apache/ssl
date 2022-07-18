@@ -1,7 +1,10 @@
-1. 生成自签名证书
+1. 编译 mod_ssl
 
-    openssl genrsa -out server.key 2048
-    openssl req -x509 -days 365 -key server.key -out server.crt
+   方式一: 编译 apache
+	./configure --prefix=/usr/local/apache2/ --with-included-apr --enable-ssl
+
+   方式二: apxs
+	apxs -c -i -a *.c -lcrypto -lssl -ldl   
 
 2. 配置
 
@@ -15,3 +18,9 @@
         /usr/local/apache2/conf/extra/httpd-ssl.conf
         SSLCertificateFile "/usr/local/apache2/conf/server.crt"
         SSLCertificateKeyFile "/usr/local/apache2/conf/server.key"
+
+3. 生成自签名证书
+
+    openssl genrsa -out server.key 2048
+    openssl req -x509 -days 365 -key server.key -out server.crt
+

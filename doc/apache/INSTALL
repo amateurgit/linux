@@ -29,7 +29,7 @@
         
         apr-util-1.6.1.tar.bz2 解压到 srclib/apr-util
         
-        ./configure --with-included-apr
+        ./configure --prefix=/usr/local/apache2 --with-included-apr
         
         make
         
