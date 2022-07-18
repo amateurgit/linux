@@ -1,0 +1,22 @@
+生成模块
+
+    apxs -g -n helloworld
+
+编译
+
+    apxs -c mod_helloworld.c
+
+安装
+
+    apxs -i mod_helloworld.la
+
+配置 httpd.conf
+
+    LoadModule helloworld_module modules/mod_helloworld.so
+    <Location /helloworld>
+       SetHandler helloworld
+    </Location>
+
+重启服务验证
+
+    https://server/helloworld

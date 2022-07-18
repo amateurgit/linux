@@ -1,0 +1,7 @@
+apache 的体系架构
+    扩展层
+    核心层
+    操作系统匹配层
+
+apxs (APache eXtenSion tool)
+    模块扩展工具
