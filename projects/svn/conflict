@@ -1,0 +1,36 @@
+1. conflict 发生
+
+    A 和 B 同时编辑同一文件，A 提交文件后，B 执行命令 svn up，会显示冲突
+
+2. 处理 conflict 的方式
+
+    (p)	postpone	
+    	推迟处理
+	原文件被修改, 并产生了三个额外文件
+	    main.c		原文件
+	    	<<<<<<< .mine
+		    // B 版本
+		=======
+		    // A 提交的版本
+		>>>>>>> .r7
+	    main.c.mine		B 修改的版本
+	    main.c.r6		B 基于 r6 版本做的修改
+	    main.c.r7	        A 修改后提交的版本
+
+	解决完冲突
+	    svn resolved
+
+	临时文件被删除
+            svn ci -m "..." main.c
+    
+    (df) diff-full
+    	比较文件差异
+
+    (e) edit
+        编辑冲突的文件
+
+    (mc) mine-conflict
+        把 A 的修改覆盖掉，以 B 的为准
+
+    (tc) their-conflict
+        以 A 的版本为准， 把 B 的修改覆盖掉
