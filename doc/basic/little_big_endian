@@ -7,3 +7,9 @@ big endian
 little endian
     低地址------>高地址
     0x78|0x56|0x34|0x12
+
+IP 地址转换
+    addr = 1392617664   (big endian)
+    192.168.1.83        (little endian)
+
+    select CONCAT(addr&0x000000ff, '.', (addr&0x0000ff00)>>8, '.', (addr&0x00ff0000)>>16,'.',(addr&0xff000000)>>24) from device;
