@@ -1,0 +1,27 @@
+/* sscanf prototype */
+int sscanf(const char *str, const char *format, ...);
+
+正则表达式:
+
+   %* 过滤，不写入参数
+
+   %[a-z] 表示匹配a到z中任意字符，贪婪性
+
+   %[aB'] 匹配a、B、'中一员，贪婪性
+
+   %[^a] 匹配非a的任意字符，贪婪性
+-----------------------------------------------------
+sscanf("iios/12DDWDFF@122", "%*[^/]/%[^@]", buf);	// %*:过滤后面紧跟的匹配项   [^/]:匹配非/的任意字符  /:匹配斜杠字符   [^@]:匹配非@的任意字符
+
+printf("%s/n", buf);
+
+结果为：12DDWDFF
+
+
+
+
+#define STR "mgt_ip=192.168.0.60,mgt_mask=255.255.255.0,mgt_gw=192.168.0.1,mgt_mac=00:90:0b:74:cf:2e,mgt_mtu=1500"
+
+sscanf(STR, "%*[^=]=%[^,]%*[^=]=%[^,]%*[^=]=%[^,]%*[^=]=%[^,]%*[^=]=%d", ip, mask, gateway, mac, &mtu);
+
+printf("ip = %s, mask = %s, gateway = %s, mac = %s,mtu = %d\n", ip, mask, gateway, mac, mtu);
