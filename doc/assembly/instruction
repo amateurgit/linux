@@ -1,0 +1,85 @@
+汇编指令包括操作码和操作数
+	操作码
+		movb(8 bit)、movw(16 bit)、movl(32 bit)、movq(64 bit)
+
+	操作数分类:
+		立即数			$8
+		寄存器数		%eax
+		存储器引用
+
+
+寻址
+
+	立即寻址
+
+		movl	$0x123	%edx		# 常数 0x123 放到 EDX 中
+
+	寻址
+
+		movl	%eax	%edx		#  EAX 中的内容放到 EDX 中 
+
+	直接寻址
+
+		movl	0x123	%edx		# 不带 $ 表示地址，将地址为 0x123 的内存中的数据放到 EDX
+
+	间接寻址
+
+		movl	(%ebx), %edx		#  EBX 中的内容是一个内存地址, (%ebx) 表示内存中的数据
+
+	变址寻址
+
+		movl	4(%ebx), %edx		#  EBX 存储的数值加 4， 然后间接寻址
+
+	push/pop
+
+		pushl %eax			# 入栈 : ESP 减 4 (堆栈向下增长) , 预留 32 bit 存储单元, EAX 内容放到存储单元
+							 subl $4, %esp
+							 movl %eax, (%esp)
+
+		popl  %eax			# 出栈 : 栈顶一个 32 bit 数据，放到 EAX, ESP 加 4
+							 movl (%esp), %eax
+							 addl $4, %esp
+
+	call/ret
+
+		call 0x12345			# EIP 入栈, 然后将 0x12345 放入 EIP
+							pushl %eip(*)
+    							movl 0x12345, %eip(*)
+    							
+
+		ret				# 栈顶一存储单元，放到 EIP 寄存器
+							popl %eip(*)
+
+    	enter/leave
+
+		enter				# 建立函数堆栈
+							pushl %ebp
+							movl %esp, %ebp
+
+		leave				# 撤销函数堆栈
+							movl %ebp, %esp
+							popl %ebp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

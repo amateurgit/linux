@@ -1,0 +1,66 @@
+16 bit 8086 CPU 寄存器
+
+    数据寄存器
+    	AX		Accumulator			累加器
+				可分为两个独立的 8 bit 寄存器 AH 和 AL
+    	BX		Base				基址寄存器
+				可分为两个独立的 8 bit 寄存器 BH 和 BL
+    	CX		Count				计数寄存器
+				可分为两个独立的 8 bit 寄存器 CH 和 CL
+    	DX		Data				数据寄存器
+				可分为两个独立的 8 bit 寄存器 DH 和 DL
+    
+    指针寄存器
+    	SP		Stack Pointer		堆栈指针寄存器(栈顶指针)
+    	BP		Base Pointer		基指针寄存器
+    
+    变址寄存器
+    	SI		Source Index		源变址寄存器
+    	DI		Destination Index	目的变址寄存器
+    
+    控制寄存器
+    	IP		Instruction Pointer	指令指针寄存器(保存 CPU 下一条指令地址)
+    	FLAG						标志寄存器
+    
+    堆栈寄存器
+    	CS		Code Segment		代码段寄存器	
+    	DS		Data Segment		数据段寄存器
+    	SS		Stack Segment		堆栈段寄存器
+    	ES		Extra Segment		附加段寄存器
+
+
+32 bit 8086 CPU 寄存器
+
+    数据寄存器
+    	EAX		Accumulator			累加器
+    	EBX		Base				基址寄存器
+    	ECX		Count				计数寄存器
+    	EDX		Data				数据寄存器
+		注意:相对 16 bit, 数据寄存器还可以作为指针寄存器使用
+    
+    指针寄存器
+    	ESP		Stack Pointer		堆栈指针寄存器
+    	EBP		Base Pointer		基指针寄存器
+    
+    变址寄存器
+    	ESI		Source Index		源变址寄存器
+    	EDI		Destination Index	目的变址寄存器
+    
+    控制寄存器
+    	EIP		Instruction Pointer	指令指针寄存器
+    	EFLAGS						标志寄存器
+    
+    堆栈寄存器
+    	CS		Code Segment		代码段寄存器	
+    	DS		Data Segment		数据段寄存器
+    	SS		Stack Segment		堆栈段寄存器
+    	ES		Extra Segment		附加段寄存器
+		FS
+		GS
+		注意:相对 16 bit, 增加了 FS 和 GS 寄存器
+
+
+
+64 bit 8086 CPU 寄存器
+
+    相对 32 bit, 寄存器名称以 R 开始, 增加了一些通用寄存器 R8,R9
