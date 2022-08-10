@@ -4,6 +4,10 @@
 
    echo "core_%e_%p_%t" > /proc/sys/kernel/core_pattern  // man core
 
+   /* 定位产生 core 文件的 bug */
+   gdb -c core app
+   bt
+
 2. gdb
 
     编译
