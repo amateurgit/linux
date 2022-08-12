@@ -1,0 +1,8 @@
+diff 记录两个文件的差异, patch 实现两个文件的互转
+
+step 1 : 两个文件的差异
+    diff -Nur original/ new/ > diff_patch
+
+step 2 : 原文件升级 | 新文件回滚
+    patch -p1 < ../diff_patch	       # original 目录下
+    patch -R -p1 < ../diff_patch       # new 目录下
