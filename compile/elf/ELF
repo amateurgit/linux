@@ -62,3 +62,23 @@ ELF	Executable and Linkable Format
 	    b 5
 	    trace				#  断点地址 0x401149
 	    					#  说明了, 程序被加载到了虚拟内存固定的位置, 和 readelf 读到的地址对应
+
+	Size of this header
+           Size of this header:  64 (bytes)     # ELF 文件头占用 64 bytes
+	   Size of program headers: 56 (bytes)  # 程序头占用 56 bytes
+	   Size of section headers: 64 (bytes)  # 节头表占用 64 bytes
+
+
+	程序头表, 查看节和段的映射关系
+	    readelf -l test			# 打开程序头表
+	        Program Headers:			# 描述了各个段的属性
+		    Type	# 段的类型
+		    Offset	# 偏移量, 即相对 ELF 文件的偏移量
+		    VirtAddr    # 虚拟地址
+		    PhysAddr    # 物理地址
+		    FileSiz     # 文件大小
+		    MemSiz      # 内存大小
+		    Flags       # 标致
+		    Align	# 对齐
+
+	        Section to Segment mapping: 		# 描述了节和段的映射关系
