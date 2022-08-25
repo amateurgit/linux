@@ -1,0 +1,64 @@
+ELF	Executable and Linkable Format
+
+    功能:
+
+        程序映射到内存
+
+    文件结构:
+
+        ---------------
+        |   ELF 文件头 |
+        ---------------
+        |   程序头表   |
+        ---------------
+        |   节或段     |
+        ---------------
+        |   节头表     |
+        ---------------
+
+    节和段的对应关系, ELF 文件映射到内存的地址分配?
+    
+        Entry point address
+	   gcc -o main entry_point_address.c	
+	   readelf -h main 					# 查看 ELF 文件头部, Entry point address: 0x1060
+	   objdump -d main					# 反汇编, 0000000000001060 <_start>。即 _start 是程序入口点
+	   readelf -d main					# 默认会链接 libc.so.6, 添加了启动例程
+	   gcc -o main entry_point_address.c -Wl,-ehello	# 告诉连接器, 入口点为 hello。 重复上述命令:
+	   							  Entry point address:   0x1149
+								  0000000000001149 <hello>:
+	   ./main
+	   echo $?   						# 打印程序退出状态 42, hello 方法输出
+
+	   hexdump -C main | grep -A 5 -B 5 1140		# 打印二进制文件, 1149 位置的序列为 f3 0f 1e fa 55 48 89 ....
+	   objdump -d main | grep -A 5 -B 5 hello               # 反汇编, 查看 hello 的指令序列 
+	   								1149:	f3 0f 1e fa          	endbr64
+									114d:	55                   	push   %rbp	...
+								# Entry point address, 是入口点函数在 ELF 文件中的偏移量
+
+								# 0000000000001149, 前面的 0 表示默认 ELF 装载到内存的其实地址是 0000000000000000
+
+	  gcc -o main entry_point_address.c -Wl,-ehello -Wl,-Ttext-segment,0x4200000 	# 指定 ELF 文件装载到内存的起始地址
+	  										# Entry point address: 0x4201149  
+	
+
+
+
+
+        Type
+	    gcc -o nopie nopie.c
+	    readelf -h nopie		  # Type: DYN (Shared object file), 为什么类型是 DYN?
+	    gcc -v                        # gcc 默认使用 -enable-default-pie 选项
+	    				    编译出与位置无关的代码 (创建介于共享库和可执行代码之间的代码，可以像共享库一样重新分配地址)
+    					    可以让程序装载到随机的地址
+	    gcc -o nopie nopie.c -no-pie  # 关闭这一功能，Type:  EXEC (Executable file)
+
+	    gcc -o nopie1 nopie.c -g		# nopie1
+	    gcc -o nopie2 nopie.c -no-pie -g    # nopie2
+	    gdb nopie1
+	    b 5
+	    trace				#  断点地址 0x55555555515c
+	    					#  说明了, 程序被加载到了随机的内存位置
+	    gdb nopie2
+	    b 5
+	    trace				#  断点地址 0x401149
+	    					#  说明了, 程序被加载到了虚拟内存固定的位置, 和 readelf 读到的地址对应
