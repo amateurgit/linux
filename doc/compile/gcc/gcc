@@ -191,3 +191,13 @@ int main(void)
 1. Get gcc build-in macros using command:
 
 	gcc -E -dM - </dev/null
+
+
+2. 传递以逗号分割选项参数给 汇编器/预处理器/链接器
+
+    -Wa, <options>	Pass comma-separated <options> on to the assembler
+    -Wp, <options>	Pass comma-separated <options> on to the preprocessor
+    -Wl, <options>	Pass comma-separated <options> on to linker
+
+
+
