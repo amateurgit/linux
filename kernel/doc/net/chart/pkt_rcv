@@ -53,6 +53,15 @@
 												   +-----------------+
 
 1. 网络数据包到达网卡 NIC
+    网卡根据工作模式, 对数据包进行接收或丢弃
+    	广播
+	多播
+	    ifconfig ens33 multicast    # 开启多播模式
+	    ifconfig ens33 -multicast   # 关闭多播模式
+	直接
+	混杂
+	    ifconfig ens33 promisc	# 开启混杂模式
+	    ifconfig ens33 -promisc     # 关闭混杂模式
 
 2. 网卡通过 DMA 的方式，将数据包复制到内存
 
