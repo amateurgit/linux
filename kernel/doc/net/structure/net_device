@@ -1,3 +1,37 @@
-存储特定网络设备的所有信息
+概述
+    存储特定网络设备的所有信息
 
-数据结构角度来看，被插入到了一个 全局列表 和 两个 hash 表中
+    数据结构角度来看，被插入到了一个 全局列表 和 两个 hash 表中
+
+模型
+
+    struct net_device {
+    
+        配置
+    	设备名称, 如 eth0
+    	mtu
+    	混杂模式
+    	...
+    
+        设备状态
+    
+    
+        统计数据
+            struct net_device_stats stats;	// 公共统计数据
+            void * priv;			// 私有统计数据, 由驱动程序指定相关结构
+    
+    
+        列表管理
+	    struct net_device *next;
+	    struct hlist_node name_hlist;
+	    struct hlist_node index_hlist;
+    
+    
+        流量管理
+    
+        功能专用
+    
+        通用
+    
+        函数指针
+    };
