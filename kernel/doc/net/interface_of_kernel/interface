@@ -1,43 +1,11 @@
 内核和用户空间通信方式
 
-	1. 系统调用
+    1. 经典系统调用
 
-		sysctl
+    2. procfs 虚拟文件系统
 
-		ioctl
+    3. sysfs 虚拟文件系统
 
-	2. 三种特殊的接口
+        procfs 和 sysfs 比较 : procfs 较早, 文件系统乱; sysfs, 更有条理
 
-		/proc 文件系统
-
-			a. 内核以文件的形式向用户空间输出内部信息
-
-			b. /proc/sys 此接口允许用户空间读取或修改内核变量的值	
-
-		/sys 文件系统
-
-			相对 /proc 而言，以非常干净而有组织的方式输出很多信息
-
-		Netlink 套接字
-
-
-			Netlink 套接字
-
-			协议族   : PF_NETLINK
-
-			协议类型 : 只支持 SOCK_DGRAM 
-
-
-/proc 文件系统
-
-	/porc/net	网络代码注册文件(内核文件)
-
-		i. 网络功能初始化    -->    注册文件    -->    /proc/net
-
-		ii. 用户访问 /proc/net 文件    -->    间接运行网络代码注册的函数    -->    返回特定数据
-
-
-	/proc/sys	内核变量
-
-
-
+    4. ioctl 和 Netlink
