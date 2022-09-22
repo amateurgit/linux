@@ -4409,6 +4409,7 @@ static int __init net_dev_init(void)
 
 	BUG_ON(!dev_boot_phase);
 
+	/* 初始化记录统计信息的 proc 文件 */
 	if (dev_proc_init())
 		goto out;
 
@@ -4445,6 +4446,7 @@ static int __init net_dev_init(void)
 
 	dev_boot_phase = 0;
 
+	/* 注册发送、接收软中断 */
 	open_softirq(NET_TX_SOFTIRQ, net_tx_action, NULL);
 	open_softirq(NET_RX_SOFTIRQ, net_rx_action, NULL);
 
