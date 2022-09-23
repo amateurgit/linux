@@ -1,0 +1,26 @@
+系统
+
+    Ubuntu 14.04.1 LTS 64 bits
+
+内核
+
+    linux-3.9.4.tar.xz
+
+QEMU
+
+    apt-get install qemu
+    ln -s /usr/bin/qemu-system-i386 /usr/bin/qemu
+
+内核模拟程序
+
+    mykernel_for_linux3.9.4sc.patch
+
+    cd linux-3.9.4
+    patch -p1 < ../mykernel_for_linux3.9.4sc.patch
+
+编译
+    make allnoconfig
+    make
+
+运行
+    qemu -kernel arch/x86/boot/bzImage

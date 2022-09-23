@@ -1,0 +1,49 @@
+# 内核根目录下创建 mykernel 文件夹, 切换到该目录编写内核程序
+
+内核程序
+    
+    编写内核程序
+
+	include/linux/start_kernel.h                     # 头文件
+	    extern void __init my_start_kernel(void);
+
+        mykernel/mymain.c                                # 实现 my_start_kernel
+
+	my_start_kernel();			         # < start_kernel > 执行的内核代码
+        rest_init();
+
+    重写 Makefle
+
+        源码目录下的 Makefile
+            -core-y          += kernel/ mm/ fs/ ipc/ security/ crypto/ block/
+            +core-y          += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ mykernel/
+	mykernel 下的 Makefile
+	    +obj-y     = mymain.o
+
+    编译运行
+    
+        make allnoconfig
+	make
+	qemu -kernel arch/x86/boot/bzImage 
+
+时钟中断
+    
+    编写内核程序
+
+	include/linux/timer.h                            # 头文件
+           extern void my_timer_handler(void);
+
+        mykernel/myinterrupt.c                           # 实现 my_timer_handler
+
+	arch/x86/kernel/time.c			         # < timer_interrupt > 时钟中断, 执行 my_timer_handler
+
+    重写 Makefle
+
+	mykernel 下的 Makefile
+	    +obj-y     = mymain.o myinterrupt.o
+
+    编译运行
+    
+        make allnoconfig
+	make
+	qemu -kernel arch/x86/boot/bzImage 
