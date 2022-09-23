@@ -1,0 +1,28 @@
+    <start_kernel>             --------------------> <kernel_init>       -----------> <do_basic_setup>
+...                            |                     ...                 |           usermodehelper_init() 
+parse_early_param()            |                     do_basic_setup() ---- 	     ...
+ |                             |                     ...                             driver_init() 
+  ——>parse_args()              |                     free_init_mem() 		     ...
+parse_args()                   |                     ...			     sock_init()
+...                            |                     run_init_process()              ...              ---fn 1
+init_IRQ()                     |                                                     do_initcalls() --   fn i(net_dev_init)
+init_timers()                  |                                                                      ---fn n
+softirq_init()                 |
+...                            |
+rest_init()                    |
+ |                             |
+  ——————————>kernel_thread(kernel_init,...)
+
+引导选项
+
+    两次 parse_args 调用, 解析引导配置
+
+中断和定时器
+
+    init_IRQ 初始化硬件中断
+    init_timers 初始化定时器
+    softirq_init 初始化软中断
+
+函数初始化
+
+    do_initcalls 初始化内核子系统及内建的设备驱动程序
