@@ -14,7 +14,7 @@
 
 		movl	$0x123	%edx		# 常数 0x123 放到 EDX 中
 
-	寻址
+	寄存器寻址
 
 		movl	%eax	%edx		#  EAX 中的内容放到 EDX 中 
 
