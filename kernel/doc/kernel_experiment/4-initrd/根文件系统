@@ -1,0 +1,12 @@
+根文件系统包括:
+    内存根文件系统 和 磁盘根文件系统
+    内核启动, 先访问内存根文件系统, 再切换到磁盘根文件系统
+
+内存根文件系统制作
+
+    将设计好的 init 进程二进制文件拷贝到 rootfs 目录下, 并进入 rootfs 目录, 执行以下命令:
+       find . | cpio -o -H newc | gzip -9 > ../rootfs.img
+
+       -H : --format, 归档格式
+           其中有 bin, odc，newc, crc，tar 等格式
+	   odc 是老式 POSIX.1 上跨平台格式，newc 是新 SVR4 跨平台格式，支持大于 65536i 节点的文件系统，一般 ramdisk 用这个格式

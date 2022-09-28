@@ -1,0 +1,3 @@
+vmLinux		编译出来的最原始的内核 ELF 文件
+bzImage		vmLinux 经 gzip 压缩后的文件, 即压缩的内核镜像, b 表示 big, 适用于大内核
+zImage		适用于小内核
