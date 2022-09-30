@@ -7,3 +7,16 @@
     EAX 传递系统调用号
 
     EBX, ECX, EDX, ESI, EDI, EBP  6 个寄存器传参, 如果参数超过 6 个, 则把某个寄存器指向内存, 通过内存传递更多的参数
+
+
+系统调用内核处理流程
+
+    start_kernel -> trap_init
+	                |
+                        V
+                    set_system_gate(SYSCALL_VECTOR,&system_call);/* 绑定中断向量和中断服务, x86 traps_32.c */
+                    #define SYSCALL_VECTOR             0x80              /* irq_vectors.h */
+                    ENTRY(system_call)                                   /* 一段汇编代码的入口, x86 arch/x86/kernel/entry_32.S */
+                        |
+                        V
+                    call *sys_call_table(,%eax,4)/* 通过系统调用号在系统调用表中找到相应的系统调用内核处理函数 */

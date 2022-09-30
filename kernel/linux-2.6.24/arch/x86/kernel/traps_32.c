@@ -1191,7 +1191,7 @@ void __init trap_init(void)
 		printk("done.\n");
 	}
 
-	set_system_gate(SYSCALL_VECTOR,&system_call);
+	set_system_gate(SYSCALL_VECTOR,&system_call);	/* 绑定中断向量和中断服务程序 */
 
 	/* Reserve all the builtin and the syscall vector. */
 	for (i = 0; i < FIRST_EXTERNAL_VECTOR; i++)

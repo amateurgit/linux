@@ -563,7 +563,7 @@ asmlinkage void __init start_kernel(void)
 		local_irq_disable();
 	}
 	sort_main_extable();
-	trap_init();
+	trap_init();	/* 初始化系统调用 */
 	rcu_init();
 	init_IRQ();
 	pidhash_init();

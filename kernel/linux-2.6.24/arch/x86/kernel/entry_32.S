@@ -367,7 +367,7 @@ ENTRY(system_call)
 	RING0_INT_FRAME			# can't unwind into user space anyway
 	pushl %eax			# save orig_eax
 	CFI_ADJUST_CFA_OFFSET 4
-	SAVE_ALL
+	SAVE_ALL			# 保护现场
 	GET_THREAD_INFO(%ebp)
 					# system call tracing in operation / emulation
 	/* Note, _TIF_SECCOMP is bit number 8, and so it needs testw and not testb */
@@ -376,7 +376,7 @@ ENTRY(system_call)
 	cmpl $(nr_syscalls), %eax
 	jae syscall_badsys
 syscall_call:
-	call *sys_call_table(,%eax,4)
+	call *sys_call_table(,%eax,4)	# 通过系统调用号在系统调用表中找到相应的系统调用内核处理函数
 	movl %eax,PT_EAX(%esp)		# store the return value
 syscall_exit:
 	LOCKDEP_SYS_EXIT
