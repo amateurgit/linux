@@ -1,0 +1,3 @@
+ipcs 命令查看 IPC 资源
+
+    ipcs --help
