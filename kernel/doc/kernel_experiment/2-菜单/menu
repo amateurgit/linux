@@ -1,0 +1,19 @@
+Step 1 编译内核
+
+    make i386_defconfig      # 生成 x86 默认配置
+
+    make menuconfig          # 打开配置窗口, 添加调试选项
+        Kernel hacking  ---> 
+                           Compile the kernel with debug info
+
+    make                     # 编译
+
+Step 2 文件系统
+
+   进入 src/init 目录, 编译 init 程序,  拷贝到 src/rootfs 目录下, 执行下面的命令, 生成 rootfs.img
+
+   find . | cpio -o -H newc | gzip -9 > rootfs.img
+    
+Step 3 运行
+
+   qemu -kernel bzImage -initrd rootfs.img 
