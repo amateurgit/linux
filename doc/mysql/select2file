@@ -6,7 +6,17 @@
 
 方法 2
 	show global variables like '%secure_file_priv%';
-	select host, user from mysql.user into outfile '/var/lib/mysql-files/outfile.txt';
+
+        # 格式化, 导出
+	select host, user from mysql.user into outfile '/var/lib/mysql-files/outfile.txt' fields terminated by ',' optionally enclosed by '"' ESCAPED BY '\\' lines terminated by '\n';
+            fields terminated by ','       # 字段分隔符
+            optionally enclosed by '"'     # 字段值为字符型，导出加引号
+	    ESCAPED BY '\\'                # 字段值出现 "fields terminated by, optionally enclosed by, ESCAPED BY, lines terminated by" 命令使用的字符时，进行转义
+	    lines terminated by '\n'       # 行结尾符
+
+	# 添加表头
+	select * into outfile '/var/lib/mysql-files/outfile.txt' fields terminated by ','  ESCAPED BY '\\' lines terminated by '\n' from (select '主机', '用户' union select host, user from mysql.user) b;
+
 
 方法 3
 	mysql -h127.0.0.1 -P3306 -uroot -pmysql -e "select host, user from mysql.user;" >> /tmp/result.txt
