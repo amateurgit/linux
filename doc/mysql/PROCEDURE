@@ -1,20 +1,22 @@
-USE cm_syslog;
+USE cm_syslog;  /* 切换到日志库 */
 
-DELIMITER $$    -- 修改语句结束符为 $$
+DELIMITER $$    /* 重定义语句分隔符 */
 
-DROP PROCEDURE IF EXISTS del_partition$$   -- 删除存储过程
+DROP PROCEDURE IF EXISTS del_partition$$   /* 删除存储过程 */
 
-CREATE PROCEDURE del_partition(IN dateTime INT(11))   -- 创建存储过程
-BEGIN -- 存储过程起点
-    -- 变量声明
+CREATE PROCEDURE del_partition(IN dateTime INT(11)) COMMENT '删除指定日期前所有分区'
+BEGIN
+    # 变量声明
     declare tableName VARCHAR(128);
     declare parName VARCHAR(128);
     declare dt INT(11);
     declare c INT(11);
     declare sql_buff VARCHAR(128);
 
-    -- 游标遍历查询结果
+    # 游标遍历查询结果
     declare cur CURSOR FOR SELECT TABLE_NAME, PARTITION_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA = 'cm_syslog' AND PARTITION_NAME IS NOT NULL;
+
+    # NOT FOUND 条件触发, 先执行语句 CLOSE cur, 再执行动作 EXIT
     declare EXIT HANDLER FOR NOT FOUND CLOSE cur;
     
     OPEN cur;
@@ -22,18 +24,18 @@ BEGIN -- 存储过程起点
     WHILE (parName IS NOT NULL) DO
 	SELECT COUNT(*) FROM INFORMATION_SCHEMA.PARTITIONS WHERE (TABLE_SCHEMA = 'cm_syslog') AND (PARTITION_NAME IS NOT NULL) AND (TABLE_NAME = tableName) INTO c;
         SELECT tableName, parName, c; 
-        SELECT SUBSTRING_INDEX(parName, '_', -1) INTO dt;   -- 分割，获取日期
-	IF dt < dateTime AND c > 1 THEN   -- 日期比较
+        SELECT SUBSTRING_INDEX(parName, '_', -1) INTO dt;   # 分割，获取日期
+	IF dt < dateTime AND c > 1 THEN   # 日期比较
 	    set @sql_buff = CONCAT('ALTER TABLE ', tableName, ' DROP PARTITION ', parName);
 	    SELECT @sql_buff;
 	    PREPARE stmt FROM @sql_buff;
-	    EXECUTE stmt;  -- 删除分区
+	    EXECUTE stmt;  # 删除分区
 	END IF;
 
 	FETCH cur INTO tableName, parName;
     END WHILE;
 
     CLOSE cur;
-END$$ -- 存储过程终点
+END$$
 
-DELIMITER ;    -- 恢复语句结束符为分号 ;
+DELIMITER ;    # 恢复语句结束符为分号
