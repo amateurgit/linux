@@ -1,0 +1,5 @@
+foreach 遍历
+
+    语法 : $(foreach VAR, LIST, TEXT)
+
+    LIST 中的元素依次赋给 VAR, VAR 经过 TEXT 表达式处理, 每次运算结果以空格分隔, 作为整个 foreach 表达式的结果
