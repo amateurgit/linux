@@ -1,0 +1,6 @@
+wildcard
+    语法 : $(wildcard PATTERN...)
+
+    将指定目录下符合模式规则的文件生成以空格隔开的列表
+
+    SRCS = $(wildcard *.c)
