@@ -1,0 +1,5 @@
+patsubst 文件模式替换
+
+    语法 : $(patsubst PATTERN_OLD..., PATTERN_NEW..., LIST)
+
+    $(patsubst %.c, %.o, $(SRC_LIST))
