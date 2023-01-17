@@ -22,7 +22,7 @@ all : $(TARGET)
 
 # 目标文件编译成可执行文件
 $(TARGET) : $(OBJS)
-	$(CC) -o $@ $^ $(CFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ 
 
 # 源文件编译成目标文件 \
   隐含规则
