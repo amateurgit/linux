@@ -31,7 +31,10 @@ endif
 # 归档目标文件
 ifdef TARGET_O
 $(TARGET_O) : $(OBJECTS_O)
-	$(LD) -r -o $@ $^
+	$(LD) -r -o $@ $^; \
+	if [ $(CP_FLAG) -eq 1 ]; then \
+	    cp $@ $(TOPDIR)/obj; \
+	fi; 
 endif
 
 # 可执行程序

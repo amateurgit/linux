@@ -1,6 +1,7 @@
 TOPDIR = ../..
 
 TARGET_O  = libcmdb.o
+CP_FLAG = 1
 OBJECTS_O = cmdb.o
 DEPS      = $(OBJECTS_O:.o=.d)
 
