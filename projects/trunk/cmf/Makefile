@@ -3,6 +3,7 @@ TOPDIR = ..
 SUBDIRS = cmdb
 
 .PHONY : all clean
-all clean: $(SUBDIRS)
+all : $(SUBDIRS)
+clean : $(SUBDIRS)
 
 include $(TOPDIR)/rules.Make

@@ -25,7 +25,7 @@ LDFLAGS = \
 ifdef SUBDIRS
 .PHONY : $(SUBDIRS)
 $(SUBDIRS):
-	@for dir in $(SUBDIRS); do $(MAKE) -C $$dir $(MAKECMDGOALS); done
+	$(MAKE) -C $@ $(MAKECMDGOALS)
 endif
 
 # 归档目标文件
