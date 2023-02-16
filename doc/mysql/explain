@@ -1,0 +1,31 @@
+查看 select 语句执行计划
+
+    +----+-------------+--------+------------+-------+---------------+---------+---------+-------+------+----------+-------------+
+    | id | select_type | table  | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra       |
+    +----+-------------+--------+------------+-------+---------------+---------+---------+-------+------+----------+-------------+
+
+    表读取顺序:
+        id 值越大, 优先级越高, 越先被执行;
+	id 值相同, 从上到下依次执行。
+
+    查询类型:
+        select_type
+	    SIMPLE		简单查询, 查询中不包含 子查询 或 UNION
+	    PRIMARY		复杂查询, 最外侧查询标记为 PRIMARY
+	    SUBQUERY            复杂查询, SELECT 或 WHERE 包含的子查询
+	    DERIVED             复杂查询, FROM 列表包含的子查询
+	    UNION               复杂查询, UNION 之后的 SELECT
+	    UNION RESULT        复杂查询, 从 UNION 列表获取结果的 SELECT
+
+    查询性能:
+        type
+	    system
+	    const
+	    eq_ref              唯一性索引行
+	    ref                 非唯一性索引扫描, 返回匹配某个单独值的所有行
+	    range               使用索引检索给定范围的行
+	    index		遍历全部索引(Full Index Scan)
+	    all			遍历全表(Full Table scan)
+
+        rows
+	    统计检索数据所需读取的行数， 越小越好
