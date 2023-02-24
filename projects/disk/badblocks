@@ -1,0 +1,42 @@
+磁盘坏道
+
+检测
+
+    查看磁盘报警灯
+
+    查阅系统启动日志, 硬盘坏道时通常输出 "Buffer I/O Error"
+        dmesg
+
+    检测坏道
+       fdisk -l                                        # 列出磁盘分区信息
+       badblocks -s -v /dev/sda2 > badsectors.txt      # 检测并记录坏道
+                                                         选项 -s: 进度; -v : 详情.
+
+       cat badsectors.txt
+           # 205971590
+           # 205971591
+           # 205971592
+           # 205971593
+           # 205971594
+           # 205971595
+
+修复
+
+    备份逻辑坏道数据
+        dd if=/dev/sda2 skip=205971590 of=/tmp/205971590-205971595.dat count=6     # skip : 忽略 205971590 前的磁盘块(不包括 205971590)
+
+    修复坏道
+       fuser -m /dev/sda2     # 列出使用 /dev/sda2 的进程 PID
+       kill pid
+       umount /dev/sda2       # 卸载分区
+
+       badblocks -s -w 205971595 205971590   # 写模式进行测试, END(205971595) 在前, START(205971590) 在后
+
+       badblocks -s -v 205971595 205971590   # 再次检测已修复的块儿
+
+       dd if=/tmp/205971590-205971595.dat of=/dev/sda2 seek=205971590    # 恢复数据
+
+屏蔽
+
+    e2fsck -l badsectors /dev/sda2	# ext2/3/4 文件系统
+    fsck -l badsectors /dev/sda2        # 其他文件系统
