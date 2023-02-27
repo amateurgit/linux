@@ -1,0 +1,10 @@
+内核版本说明
+
+    uname -r       # 获取内核版本
+
+    5.11.0-49-generic
+
+        5  - 主版本号
+	11 - 次版本号
+	0  - 补丁       applied on occation to the stable kernel when significant bug/security fixed are required
+	-49-generic - 标记发行版对内核的修改
