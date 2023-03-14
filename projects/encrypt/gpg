@@ -1,0 +1,2 @@
+gpg -c filename    # 加密一个文件
+gpg filename.gpg   # 解密一个文件
