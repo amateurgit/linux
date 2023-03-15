@@ -17,11 +17,18 @@
 	    main.c.r6		B 基于 r6 版本做的修改
 	    main.c.r7	        A 修改后提交的版本
 
-	解决完冲突
-	    svn resolved
+	情景 1:
+	    解决完冲突
+	        svn resolved
 
-	临时文件被删除
-            svn ci -m "..." main.c
+	    临时文件被删除
+                svn ci -m "..." main.c
+	情景 2:
+	    问题描述
+	        B 删除了 main.c, svn up 无法更新
+	    解决方法
+	        svn resolve --accept=working main.c  # svn resolve 移除冲突状态(删除三个文件); --accept=working 当前内容作为解决冲突后的状态
+		svn revert main.c                    # main.c 文件回滚到上一版本
     
     (df) diff-full
     	比较文件差异
