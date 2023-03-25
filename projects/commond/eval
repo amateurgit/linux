@@ -1,0 +1,14 @@
+特性:
+
+    扫描字符串, 构造命令
+
+实例:
+
+    touch test
+    echo "Hello world" > test 
+    WORD="cat test"
+
+    echo $WORD
+       # 回显结果 : "cat test"
+    eval $WORD
+       # 回显结果 : "Hello world"
