@@ -1,0 +1,17 @@
+github 添加 ssh-key
+    
+    1. 生成密钥对
+    
+        ssh-keygen -t rsa -b 4096 -C "wsj_yx@yeah.net"
+            # -t 密钥类型 [RSA|DSA]
+            # -b 密钥长度, RSA 最小要求 768 位, 默认 2048 位; DSA 必须 1024 位(FIPS 186-2 标准要求)
+            # -C 密钥注释
+    
+    2. 私钥添加到 ssh-agent
+    
+        ssh-add ~/.ssh/id_rsa
+    
+    3. 公钥添加到 github 账户
+    
+        id_rsa.pub 内容粘贴到 github
+            # 右上角->Settings->SSH and GPG keys->New SSH key
