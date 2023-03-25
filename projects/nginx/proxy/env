@@ -1,13 +1,19 @@
 nginx
-    wget https://nginx.org/download/nginx-1.22.1.tar.gz
-    tar -xvf nginx-1.22.1.tar.gz
-    ./configure
-    make
-    make install
+    # 编译
+        wget https://nginx.org/download/nginx-1.22.1.tar.gz
+        tar -xvf nginx-1.22.1.tar.gz
+        ./configure
+        make
+        make install
+        /usr/local/nginx/sbin/nginx  # 启动
+        http://10.10.10.100/         # 测试
 
-    /usr/local/nginx/sbin/nginx  # 启动
-    http://10.10.10.100/         # 测试
-
+    # 添加 subs_filter 模块
+	cd /usr/local/src/nginx-1.22.1
+	./configure --add-module=/usr/local/src/nginx-1.22.1/ngx_http_substitutions_filter_module/
+	make
+	make install
+	/usr/local/nginx/sbin/nginx -V   # 查看配置详情
 
 java
     https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz

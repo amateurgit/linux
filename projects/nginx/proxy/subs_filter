@@ -1,0 +1,7 @@
+synopsis
+
+    subs_filter src_string dst_string [gior]
+        g - 替换所有匹配的字符串(默认)
+        i - 区分大小写
+        o - 仅替换首个匹配字符串
+        r - 使用正则替换模式
