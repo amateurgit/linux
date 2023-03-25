@@ -8,7 +8,10 @@ github 添加 ssh-key
             # -C 密钥注释
     
     2. 私钥添加到 ssh-agent
-    
+
+        # 如果 " Could not open a connection to your authentication agent "
+        # 先执行 eval "$(ssh-agent -s)" 授权代理套接字参数配置到全局变量中
+
         ssh-add ~/.ssh/id_rsa
     
     3. 公钥添加到 github 账户
