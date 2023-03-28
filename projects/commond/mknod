@@ -1,0 +1,12 @@
+mknod - make block or character special files
+
+     mknod DEVNAME {b | c}  MAJOR  MINOR
+
+         DEVNAME      设备名
+	 b|c          设备类型, 块或者字符
+	 MAJOR,MINOR  设备标志, 便于管理
+                      linux操作系统中为设备文件编号分配了32位无符号整数
+		      其中前12位是主设备号，后20位为次设备号，所以在向系统申请设备文件时主设备号不好超过 4095，次设备号不好超过 2^20 -1
+
+    举例:
+        mknod tty1 c 4 1 
