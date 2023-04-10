@@ -1,0 +1,8 @@
+捕获 
+    接口 -i eth0
+    地址 host 192.168.1.85
+    协议 icmp
+    数量 -c 3
+    文件 -w a.cap
+
+    tcpdump -i eth0 host 192.168.1.85 and icmp -c 3 -w a.cap
