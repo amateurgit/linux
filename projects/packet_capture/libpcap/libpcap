@@ -1,0 +1,9 @@
+1. 源码安装
+    wget -c http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz
+    ./configure
+    make
+    make install
+    ldconfig       # 载入动态库 lpcap
+
+2. 测试用例
+    libpcap.c
