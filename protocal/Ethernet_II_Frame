@@ -3,9 +3,31 @@
 -----------------------------------------
    6        6      2     46---1500    4
 
-
 D-MAC   目的 mac 地址
 S-MAC   源 mac 地址
 TYPE	上层协议类型. 例如 0x0800 表示网络层使用 IP 协议
 DATA	数据
 CRC     数据帧校验
+
+附录 :
+    0x0806			ARP
+    
+    0x8035			RARP
+    
+    0x0800			IP
+    
+    0x86DD			IPv6
+    
+    0x8863/0x8864		PPPoE
+    
+    0x8847/0x8848		MPLS
+    
+    0x8137			IPX/SPX
+    
+    0x8809			LACP
+    
+    0x888E			802.1x
+    
+    0x88A7			HGMP
+    
+    0xFFFD/0xFFFE/0xFFFF	设备保留
