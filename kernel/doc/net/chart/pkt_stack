@@ -1,0 +1,14 @@
+收包调用栈 (基于 linux-3.10.0)
+
+    确定网卡驱动
+
+        lspci | grep Ethernet                        # 02:01.0 Ethernet controller: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) (rev 01)
+        find /sys/bus/pci/drivers/ | grep 02:01.0    # /sys/bus/pci/drivers/e1000/0000:02:01.0
+	                                             # e1000
+
+    驱动程序代码(假设igb)
+
+        linux-3.10.0/drivers/net/ethernet/intel/igb/igb_main.c
+
+        igb_poll->igb_clean_rx_irq->napi_gro_receive->napi_skb_finish->netif_receive_skb_internal->__netif_receive_skb->__netif_receive_skb_core 
+
