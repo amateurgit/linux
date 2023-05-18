@@ -1,0 +1,9 @@
+ubuntu 设置 dns
+
+    配置文件
+        vim /etc/systemd/resolved.conf
+        [Resolve]
+        DNS=8.8.8.8
+
+    重启服务
+        systemctl restart systemd-resolved
