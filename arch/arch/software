@@ -1,0 +1,21 @@
+                        |
+   Applications:        |    Development Tools:
+      Web Browser       |       C/C++ Compiler
+      Video Player      |       Assembler
+      Word Processor    |       Library Tools
+      Email Client      |       Debug Tools
+      Image Viewer      |       Development Libraries
+      ...               |       ...
+                        |
+-------------- Operation System API -------------------
+
+                 Running Library
+
+------------------ System Call ------------------------
+
+                 Operating System Kernel
+
+--------------- Hardware Specification  ----------------
+
+                     Hardware
+
