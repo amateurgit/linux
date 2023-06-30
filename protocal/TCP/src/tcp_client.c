@@ -10,29 +10,32 @@
 #include <unistd.h>
 
 #define PORT 8888
+#define BUFFSIZE 1024
+#define EXIT_STR "exit"
 
 void process(int sockfd)
 {
     ssize_t size = 0;
-    char buffer[1024];
+    char request[BUFFSIZE];
+    char response[BUFFSIZE];
 
     for(;;)
     {
-        memset(buffer, 0, sizeof(buffer));
+        memset(request, 0, BUFFSIZE);
+        size = read(STDIN_FILENO, request, BUFFSIZE);
+	write(sockfd, request, size);
 
-        size = read(STDIN_FILENO, buffer, 1024);
-        if (strstr(buffer, "exit"))
-        {
-            return;
-        }
-        else
-        {
-            write(sockfd, buffer, size);
-        }
+        memset(response, 0, BUFFSIZE);
+        size = read(sockfd, response, BUFFSIZE);
+        write(STDOUT_FILENO, response, size);
 
-        size = read(sockfd, buffer, 1024);
-        write(STDOUT_FILENO, buffer, size);
+        if (0 == strncasecmp(request, EXIT_STR, strlen(EXIT_STR)))
+	{
+	    break;
+	}
     }
+
+    return;
 }
 
 int main(int argc, char *argv[])

@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 
 #include <unistd.h>
+#include <linux/tcp.h>
 
 #define PORT 8888
 #define BACKLOG 2
@@ -23,9 +24,30 @@ void process(int client_sock)
         memset(buffer, 0, sizeof(buffer));
         size = read(client_sock, buffer, 1024);
 
-        snprintf(buffer, sizeof(buffer), "%ld bytes altogether\n", size);
-        write(client_sock, buffer, strlen(buffer) + 1);
+        if (size > 0)
+        {
+            snprintf(buffer, sizeof(buffer), "%ld bytes altogether\n", size);
+            write(client_sock, buffer, strlen(buffer) + 1);
+        }
+        else if (0 == size)  /* 收到客户端的 FIN 报文 */
+        {
+            /* 打开 TCP_QUICKACK, 关闭 TCP 延迟应答机制, 展示四次挥手 */
+            int enable = 1;
+            if (setsockopt(client_sock, IPPROTO_TCP, TCP_QUICKACK, (char *)&enable, sizeof(enable)) < 0)
+            {
+                perror("setsockopt");
+            }
+
+            break;
+        }
+        else
+        {
+	    perror("read");
+	    break;
+        }
     }
+
+    return;
 }
 
 
@@ -81,6 +103,10 @@ int main(int argc, char *argv[])
 
             /* 5. 读写 */
             process(client_sock);
+
+	    close(client_sock);
+
+            exit(EXIT_SUCCESS);
         }
         else /* 父进程 */
         {
