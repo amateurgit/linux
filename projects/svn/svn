@@ -13,3 +13,16 @@
 4. 显示最近提交的几个版本的日志
 
     svn log -l 10                 # 最近提交的 10 个版本
+
+5. 多个文件分组提交
+
+    svn status -q                         # 查看本地代码修改过的文件
+
+    svn changelist fix-bug-desc f1.c      # 文件 f1.c 加入组 fix-bug-desc
+    svn changelist fix-bug-desc f2.c      # 文件 f2.c 加入组 fix-bug-desc
+    svn changelist fix-bug-desc f3.c      # 文件 f3.c 加入组 fix-bug-desc
+
+    svn changelist --remove f1.c          # 移除 f1.c
+
+    svn ci -m "bug xxx desc" --changelist fix-buf-desc
+
