@@ -26,3 +26,8 @@
 
     svn ci -m "bug xxx desc" --changelist fix-buf-desc
 
+6. 提交可执行权限位
+
+    svn propset svn:executable on file
+
+    svn propdel svn:executable file
