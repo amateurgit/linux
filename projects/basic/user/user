@@ -1,0 +1,15 @@
+adduser 与 useradd
+
+    adduser username       # 向导式创建 
+    useradd username       # 指定参数
+
+
+deluser 与 userdel
+
+    只删用户
+        deluser/userdel username
+
+    删除家目录以及用户拥有的文件
+        deluser --remove-home --remove-all-files username
+
+        userdel -r username   # 删除家目录
