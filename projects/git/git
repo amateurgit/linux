@@ -30,3 +30,6 @@
 
         git branch -d branchname           # 删除分支
 
+    删除暂存区文件
+        git reset
+
