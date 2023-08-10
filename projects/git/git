@@ -4,8 +4,29 @@
 
     .git 目录下, index 文件是暂存区
 
+远程共享库
+
+    adduser git
+
+    git init --bare cm.git
+
+    git clone git@192.168.1.148:cm.git
+
 工作流
 
     git.jpg
 
 基本命令
+
+    分支
+        git branch                         # 列出分支
+
+        git branch branchname              # 创建分支
+
+        git checkout branchname            # 切换分支
+        git checkout -b branchname         # 创建并切换分支
+
+        git merge branchname               # 合并分支
+
+        git branch -d branchname           # 删除分支
+
