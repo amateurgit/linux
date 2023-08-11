@@ -1,0 +1,5 @@
+以太网链路
+
+    接入链路 ( access link )  连接用户终端, 传输 Untagged 桢
+
+    干道链路 ( trunk  link )  交换机之间互连, 或连接交换机与路由器, 传输 Tagged 桢
