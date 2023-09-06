@@ -1,83 +1,28 @@
-sed---Stream Editor
+功能 :
 
-语法:
+    行文本编辑器, 即 : 对文本文件进行增删改查
 
-    sed [option] -e 'sed command' filename
+语法 :
 
-    sed [option] -f 'sed script' filename
+    sed [选项] 脚本 文件
 
-可选项:
+    选项 :
+        -n silent 模式。
+        -e 使用命令行上定义脚本处理输入的文件
+        -f 使用指定的脚本文件, 处理输入的文件
+        -r sed 的动作支持的是延伸型正规表示法的语法。(默认是基础正规表示法语法)
+        -i 直接修改读取的文件内容, 而不是输出到终端。
 
-    -h或--help
+    脚本 :
+        a 新增
+        c 替换整行
+        d 删除
+        i 插入
+        p 打印
+        s 字符串替换
 
-    -n或--quiet或--silent 仅显示script处理后的结果
+示例 :
 
-    -V或--version
+    /* 查找包含某个字符串的行, 进行字符串替换 */
+    sed -i "s/oldstring/newstring/" filename             /* -i - 直接修改读取的文件 */
 
-
-sed命令和脚本:
-
-    i	插入(可以直接对原为文件进行增删改操作)
-
-    a	新增
-
-    d	删除
-
-    c	取代，替换整行
-
-    s   取代，替换某个字符串
-
-    p   打印
-
-    g   整行
-
-
-正则表达式符号:
-
-    ^	行开始			/^sed/ 匹配所有sed开头的行
-
-    $	行结束			/sed$/ 匹配所有sed结尾的行
-
-    .   任意一个非换行字符	/s.d/  匹配s后接一个任意字符，最后是d
-
-    *   0个或多个字符		 
-
-    .*  单个字符匹配任意多次
-	
----------------------------------------------------------------------------------
-
-/* 新增 */
-sed -e 4a\newLine testfile		第4行 后追加 1行字符串newLine
-
-nl /etc/passwd | sed '2a drink tea'     第2行 后追加 1行字符串drink tea
-
-nl /etc/passwd | sed '2i drink tea'     第2行 前插入 1行字符串drink tea
-
-nl /etc/passwd | sed '2a Drink tea or ......\		第2行 后追加 2行字符串drink tea 和 drink beer ?
-> drink beer ?'
-
-
-
-/* 删除 */
-nl /etc/passwd | sed '2,5d'             显示行号列出文件内容 删除2-5行(sed后加动作需要用两个单引号)
-
-
-/* 修改 */
-nl /etc/passwd | sed '2,5c No 2-5 number'	2-5行 替换为 1行字符串
-
-sed -i 's/\.$/\!/g' regular_express.txt		直接修改原文件内容
-sed -i '$a # This is a test' regular_express.txt	
-
-/* 查找 */
-nl /etc/passwd | sed -n '5,7p'		打印5-7行
-
-nl /etc/passwd | sed -n '/root/p'       查找包含root字符串的行
-
-/* 查找并执行命令 */
-nl /etc/passwd | sed -n '/root/{s/bash/blueshell/;p;q}'		查找包含root字符串的行 字符串bash替换为blueshell 打印 退出
-
-/* 获取IP地址 */
-/sbin/ifconfig eth0 | grep 'inet addr:' | sed 's/^.*addr://g' | sed 's/Bcast.*$//g'
-
-/* 多点编辑 */
-nl /etc/passwd | sed -e '3,$d' -e 's/bash/blueshell/'
