@@ -1,0 +1,75 @@
+配置
+
+    配置生成 tags 快捷键
+        map <F12> :!ctags -R --langmap=c:+.h --languages=c --c-kinds=+px --fields=+aiKSz --extra=+q .<CR>
+
+    配置 tags 路径
+        set tags=/usr/local/src/httpd-2.4.53/tags
+
+    
+常用选项
+    
+    支持的语言
+    --list-languages
+    
+    语言分析器和文件扩展名的默认关联
+    --list-maps
+    
+    语言分析器关联文件扩展名
+    --langmap=c:+.h
+    
+    
+    
+    
+    查看语言分析器可以识别的语法元素
+    --list-kinds=c
+    
+    控制 ctags 记录的语法元素
+    --c-kinds=+px
+    
+    
+    
+    记录 #if 0 中的定义
+    --if0=yes
+    
+    
+    记录系统头文件
+    -f ~/.vim/systags /usr/include /usr/local/include
+    set tags+=~/.vim/systags
+    
+    
+    记录因某些宏定义而忽略的元素
+    -I __THROW -I __attribute_pure__ -I __nonnull -I __attribute__
+    
+    
+    只对特定生成 tags
+    ctags `find -name "*.h"`
+    
+    排除某个文件或文件夹
+    --exclude=kerne*
+    
+    
+    tags 文件详解
+    	1> tag 元素名
+    	2> tab 间隔符
+    	3> tag 元素所在文件名
+    	4> tab 间隔符
+    	5> ctags 命令: tag 元素具体位置，定位光标
+    	6> tag 元素描述
+    		--fields=+aiKSz		定制 tag 元素描述内容
+    			a	如果语法元素的类的成员的话，要标明其access(即是public的还是private的)
+    			i	如果有继承，标明父类
+    			K	显示语法元素的类型的全称
+    			S	如果是函数，标明函数的signature
+    			z	显示语法元素的类型使用kind:type的格式
+    
+    		--extra=+f	记录本次扫描的各个文件,一个文件名对应一个 tag 元素
+    
+    		--extra=+q	如果某个语法元素是类的一个成员，当然ctags默认会给其记录一个 tag， 可以要求ctags对同一个语法元素再记一行, 这一行会包含类名作为前缀的成员的全路径名
+    
+    
+    ctags 实用命令
+    	ctags -I __THROW -I __attribute_pure__ -I __nonnull -I __attribute__ --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q  -f ~/.vim/systags /usr/include/* /usr/include/sys/* /usr/include/bits/*  /usr/include/netinet/* /usr/include/arpa/* /usr/include/mysql/*
+    
+    
+    	ctags -R --langmap=c:+.h --languages=c --c-kinds=+px --fields=+aiKSz --extra=+q
