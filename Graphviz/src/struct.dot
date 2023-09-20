@@ -1,0 +1,24 @@
+/* 
+    结构
+
+        dot -Tjpg -o struct.jpg struct.dot 
+*/
+
+digraph {
+    node[shape = record]
+
+    "node0" [
+    label = "<f0> left|  <f1> middle| <f2> right"
+    ];
+
+    "node1" [
+    label = "<f0> one|  <f1> two"
+    ];
+
+    "node2" [
+    label = "hello\nworld | { b | { c | <here> d | e} | f} | g | h"
+    ];
+
+    "node0":f1 -> "node1":f0;
+    "node0":f2 -> "node2":here;
+}

@@ -1,0 +1,22 @@
+/* 
+    子图块
+
+        dot -Tjpg -o visitNet.jpg visitNet.dot 
+*/
+
+digraph {
+    label = visitNet                                      /* 图片标签 */
+    rankdir = LR                                          /* 节点排列方向 */
+    node[color = Red, fontsize = 24, shape = box]         /* 定义节点颜色, 字体大小, 形状 */
+    edge[color = Blue, style = "dashed"]                  /* 箭头颜色、风格 */
+    user[style = "filled", color = Yellow, fillcolor = "chartreuse"]
+    subgraph cluster {                                     /* 子图块 */
+        label = "server and browser"
+        bgcolor = Yellow
+        server[fillcolor = Blue]
+        browser -> server;
+    }
+
+    user -> computer;
+    computer -> browser;
+}
