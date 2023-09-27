@@ -1,0 +1,9 @@
+# 读取 in.pcap 包
+    tcpdump -n -X -r in.pcap
+
+# 修改 in.pcap 包的源地址(192.168.1.242->192.168.1.84)
+    tcprewrite -i in.pcap -S 192.168.1.242:192.168.1.84 -o out.pcap          /* -S : 修改源地址; -D 修改目的地址 */
+    tcpdump -n -X -r out.pcap                                                /* 读取修改后数据包, 查看修改结果 */
+
+# 数据包回放
+    tcpreplay -i ens33 -p 2 out.pcap            /* -p : 每秒回放的数据包数量 */
