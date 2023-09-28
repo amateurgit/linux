@@ -1,9 +1,34 @@
-# 读取 in.pcap 包
-    tcpdump -n -X -r in.pcap
+Step 1 查看源数据包信息
 
-# 修改 in.pcap 包的源地址(192.168.1.242->192.168.1.84)
-    tcprewrite -i in.pcap -S 192.168.1.242:192.168.1.84 -o out.pcap          /* -S : 修改源地址; -D 修改目的地址 */
-    tcpdump -n -X -r out.pcap                                                /* 读取修改后数据包, 查看修改结果 */
+    tcpdump -n -X -e -r in.pcap    /* -e : 打印 mac 地址 */
 
-# 数据包回放
-    tcpreplay -i ens33 -p 2 out.pcap            /* -p : 每秒回放的数据包数量 */
+Step 2 实验目标
+
+    源数据包 
+             server - 3c:54:47:c9:cb:03    192.168.51.47    9600
+             client - 38:f3:ab:37:02:fb    192.168.17.15    65262
+    修改为
+             server - 94:09:d3:00:10:72    192.168.1.242    9601
+             client - 00:0c:29:92:bf:07    192.168.1.84     65263
+
+Step 3 标识服务端(tcpprep)
+
+    tcpprep -c 192.168.51.47/24 -i in.pcap -o in.cach
+
+Step 4 重写数据包(tcprewrite)
+
+    tcprewrite --enet-smac=94:09:d3:00:10:72,00:0c:29:92:bf:07 \
+               --enet-dmac=00:0c:29:92:bf:07,94:09:d3:00:10:72 \
+               --endpoints=192.168.1.242:192.168.1.84 \
+               --portmap=9600:9601 --portmap=65262:65263 \
+               --fixcsum \
+               -i in.pcap -c in.cach -o out.pcap
+
+
+Step 5 查看修改后的数据包信息
+
+    tcpdump -n -X -e -r out.pcap
+
+Step 6 重放(tcpreplay)
+
+    tcpreplay -i ens33 out.pcap
