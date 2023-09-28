@@ -1,0 +1,10 @@
+命令行安装
+    add-apt-repository ppa:oisf/suricata-stable
+    apt update
+    apt install suricata jq
+
+源码编译
+    ./configure --disable-gccmarch-native --prefix=/usr/ --sysconfdir=/etc/ --localstatedir=/var/ --enable-lua --enable-geoip
+    make
+    make install-full
+

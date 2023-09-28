@@ -1,0 +1,11 @@
+1. 触发
+
+    curl http://testmynids.org/uid/index.html
+
+2. 日志
+
+    tail -f /var/log/suricata/fast.log
+
+    tail -f /var/log/suricata/eve.json | jq 'select(.event_type=="alert")'
+    tail -f /var/log/suricata/eve.json | jq 'select(.event_type=="stats")|.stats.capture.kernel_packets'
+    tail -f /var/log/suricata/eve.json | jq 'select(.event_type=="stats")'

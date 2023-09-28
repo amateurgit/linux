@@ -1,0 +1,6 @@
+启动
+    systemctl restart suricata    # /usr/bin/suricata -c /etc/suricata/suricata.yaml --pidfile /var/run/suricata.pid --af-packet -D -vvv
+
+日志
+    tail -f /var/log/suricata/suricata.log
+    tail /var/log/suricata/stats.log          # 统计信息
