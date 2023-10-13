@@ -24,6 +24,7 @@
         git branch branchname              # 创建分支
 
         git checkout branchname            # 切换分支
+        git switch branchname              # 切换分支
         git checkout -b branchname         # 创建并切换分支
 
         git merge branchname               # 合并分支
@@ -32,4 +33,7 @@
 
     删除暂存区文件
         git reset
+
+    github 私钥路径
+        ~/.ssh/id_rsa
 
