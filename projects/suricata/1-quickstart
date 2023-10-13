@@ -1,0 +1,40 @@
+1. 编译 && 安装
+
+    ./configure --enable-nfqueue --prefix=/usr --sysconfdir=/etc --localstatedir=/var                        # 安装路径、配置文件路径 和 日志路径
+    make
+    make install-full                                                                                        # 安装配置文件 和 签名
+
+2. 配置
+
+    监控接口和地址  
+
+        suricata.yaml 
+            HOME_NET
+
+            af-packet:
+                - interface
+
+3. 签名
+
+    签名库是搜集的入侵特征库, 数据封包会和签名进行匹配, 匹配到特征会执行相应的动作.
+    
+        suricata.rules
+            动作、会话 和 选项
+
+4. 运行
+
+    /usr/bin/suricata -c /etc/suricata/suricata.yaml --pidfile /var/run/suricata.pid --af-packet -D -vvv    
+        # --af-packet 捕获配置文件中 af-packet 描述的设备的 数据包
+        # -D 后台运行
+        # -vvv 日志记录的详细等级, 三个 v 等级为配置
+5. 测试
+
+    请求
+        curl http://testmynids.org/uid/index.html
+
+    日志
+        tail -f /var/log/suricata/fast.log
+
+文献 :
+    https://suricata.io/
+    https://www.osgeo.cn/suricata/index.html
