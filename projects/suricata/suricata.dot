@@ -1,0 +1,42 @@
+/* 
+   dot -Tjpg -o suricata.jpg suricata.dot 
+*/
+
+digraph {
+    label = "suricata threading"                                      /* 图片标签 */
+    rankdir = LR                                                    /* 节点排列方向 */
+    node[color = Black, fontsize = 14, shape = box]                 /* 定义节点颜色, 字体大小, 形状 */
+    edge[color = Black]                                             /* 箭头颜色、风格 */
+
+    "node0" [
+    label = "packet acquition"
+    ];
+
+    "node1" [
+    label = "Decode & \n Stream App. Layer"
+    ];
+
+    "node2" [
+    label = "Detect"
+    ];
+
+    "node3" [
+    label = "Detect"
+    ];
+
+    "node4" [
+    label = "Detect"
+    ];
+
+    "node5" [
+    label = "Outputs"
+    ];
+
+    "node0" -> "node1";
+    "node1" -> "node2";
+    "node1" -> "node3";
+    "node1" -> "node4";
+    "node2" -> "node5";
+    "node3" -> "node5";
+    "node4" -> "node5";
+}
