@@ -1,1 +1,7 @@
-suricata        projects/suricata
+IPS 引擎
+
+    projects/suricata
+
+调试工具
+
+    tools/debug/strace
