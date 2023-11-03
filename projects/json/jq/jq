@@ -1,0 +1,5 @@
+命令行 json 数据处理
+
+语法 :
+
+    jq [options] <jq filter> [file...]

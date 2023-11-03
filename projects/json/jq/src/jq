@@ -1,0 +1,112 @@
+basic
+
+    原始 json 数据
+    
+        cat basic.json | jq .
+    
+    获取 key 的值
+    
+        cat basic.json | jq .url
+    
+        cat basic.json | jq '.["url"]'
+    
+    ? 忽略错误信息
+    
+        echo 1 | jq '.a?'
+    
+    key 组成的数组
+    
+        cat basic.json | jq keys
+    
+    value 组成的数组
+    
+       cat basic.json | jq [.[]]
+    
+       cat basic.json | jq .[]
+
+   多个过滤器
+
+      cat basic.json | jq '.url, .name' 
+
+数组操作
+
+    所有元素
+    
+        cat array.json | jq .[]
+
+    切分
+
+        cat array.json | jq .[0:2]
+
+    取出字段值
+
+        cat array.json | jq .[].name
+
+        cat array.json | jq [.[].name]
+
+        cat array.json | jq 'map(.name)'
+
+高级操作
+
+    管道
+
+        cat pipe.json | jq '.tests|.[]|.foobar'
+
+    获取字符串或数组的长度
+
+        cat basic.json | jq '.url|length' 
+
+        cat array.json | jq '.|length'
+
+    map 操作数组 并 合并结果
+
+        cat array.json | jq 'map(.name)|map(length)'
+
+    select 对输入项进行判断
+
+      cat array.json | jq 'map(.name)|map(select(length>7))'
+
+    字符串插值、拼接
+
+        cat basic.json | jq '"hi " + .name'
+
+        cat basic.json | jq '"hi \(.name)"'
+
+    r 选项输出 json 原始值
+
+         echo '{"value": "{\"url\": \"mozillazg.com\"}"}' | jq -r .value
+
+    if/else/if
+
+      cat if_else.json | jq 'map(if . == 1 then "zero" elif . == 1 then "one" elif . == 2 then "two" else "many" end)'  
+
+
+    构造 object 
+
+       echo '["mozillazg.com", "mozillazg"]' | jq '{name:.[0]}'
+
+    构造数组
+
+      cat basic.json | jq '[.name,.url]'
+
+    数组 join
+
+       echo '["mozillazg.com", "mozillazg"]' | jq '.|join(" | ")'
+
+    字符串 split
+
+        echo '"mozillazg.com | mozillazg"' |jq 'split(" | ")'   
+
+使用操作
+
+    修改某个 key 的值
+
+       echo '{"AA":"aa","BB":"bb"}' | jq --arg v XX '.BB=$v'
+
+     添加属性
+
+       echo '{"AA":"aa","BB":"bb"}' | jq --arg v 123 '.CC=($v|tonumber)' 
+
+     删除某个属性
+
+        cat basic.json | jq 'del(.name)'
