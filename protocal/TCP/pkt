@@ -64,3 +64,26 @@ TCP 报文
           | 2MSL  若 ACK 报文丢失, Server 超时重传 FIN, Client 重新启动 2MSL 计时, 确保 Server 正确进入 CLOSED 状态 
           V
        (CLOSED)
+
+ 
+附加
+
+    RST 攻击
+
+        RST - 异常关闭连接。
+
+             1. A 向 B 发起连接, B 上未监听相应端口, B 操作系统 TCP 处理程序发送 RST包。
+
+             2. A 和 B 正常通信, A 发送 FIN 关闭请求, B 发送 ACK 应答, 断网了..., 
+                断网期间 A 重启进程丢弃了原连接..., 
+                网络恢复, B 接着向 A 发送数据, A 发送 RST 包, B 收到后出现 "connect reset by peer" 错误
+
+       攻击原理
+
+           A 和 B 正常通信期间, C 伪装成 A 发送 RST 包, 导致 A 和 B 连接中断。
+
+
+
+
+
+
