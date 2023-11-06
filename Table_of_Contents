@@ -15,3 +15,6 @@ Daemon 模型
 
         命令行参数设计
             getopt/
+
+        随机数
+            rand.c
