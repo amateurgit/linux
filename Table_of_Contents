@@ -18,3 +18,9 @@ Daemon 模型
 
         随机数
             rand.c
+
+基本概念
+   projects/basic/
+
+       进程权限与文件权限模式字
+          process_priviledge 
