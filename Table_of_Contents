@@ -19,6 +19,10 @@ Daemon 模型
         随机数
             random/
 
+        校验 IP 地址
+
+            verify_ipaddr.c
+
 基本概念
    projects/basic/
 
