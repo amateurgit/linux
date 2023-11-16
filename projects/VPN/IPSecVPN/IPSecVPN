@@ -1,0 +1,84 @@
+IPSecVPN 业务流程
+
+    识别 "感兴趣流"
+
+     |   网络设备收到报文 -> 报文五元组 与 IPSec 策略匹配 -> IPSec 隧道传输
+     V
+    协商安全联盟(SA)
+
+        本端网络设备向对端网络设备发起 SA 协商
+
+    |       协商建立 IKE SA() -> 协商建立 IPSec SA (用于数据传输)
+    V
+    数据传输
+        
+    |    AH 或 ESP 协议对数据进行加密和验证(IPSec.png)
+    V  
+    隧道拆除
+
+
+    IKE
+
+        SA 协商和密钥管理
+
+        ISAKMP、Oakley, SKEME 三个协议的综合
+
+            ISAKMP 定义 IKE SA 建立过程
+            Oakley 和 SKEME 核心是 DH 算法, 用于分发密钥、验证身份
+
+    AH
+
+       数据源认证和完整性校验, 保证数据不被篡改, 不提供加密功能
+
+    ESP
+
+       数据源认证和完整性校验, 还可提供加密功能
+
+搭建 VPN 环境
+
+    网络拓扑
+
+       -----------------------------------------------------------------------
+       | 主机          接口       网络连接           IP 地址          网关    |
+       |                                                                      |
+       | lan1-pc       ens33      lan区段(net1)      172.1.1.1      172.1.1.2 |
+       | lan1-vpn      ens33        nat              10.10.10.100   10.10.10.2|
+       |               ens36      lan区段(net1)      172.1.1.2      无        |
+       | lan2-vpn      ens33        nat              10.10.10.101   10.10.10.2|
+       |               ens36      lan区段(net2)      200.1.1.2      无        |
+       | lan2-pc       ens33      lan区段(net2)      200.1.1.1      200.1.1.2 |
+       -----------------------------------------------------------------------
+
+    软件安装与配置 (https://www.920430.com/archives/2743378950.html)
+
+        设置内核参数
+
+           change_kernel_behavior.sh
+
+        安装 strongswan
+
+          apt-get install strongswan
+
+        配置共享密钥
+      
+            openssl rand -base64 64      # 生成 64 位密钥
+
+            lan1-vpn/ipsec.secrets      # 密钥写入文件  
+            lan2-vpn/ipsec.secrets
+
+        配置 ipsec.conf
+
+            lan1-vpn/ipsec.conf
+            lan2-vpn/ipsec.conf
+
+        配置防火墙规则, 允许对方私网 IP 访问本地私网 IP
+
+            iptables -t nat -A POSTROUTING -s 200.1.1.0/24 -d 172.1.1.0/24 -j MASQUERADE    # lan1-vpn
+            iptables -t nat -A POSTROUTING -s 172.1.1.0/24 -d 200.1.1.0/24 -j MASQUERADE    # lan2-vpn
+
+        测试
+
+            ipsec start                 # lan1-vpn, lan2-vpn 上启动服务
+            ipsec up net-to-net         # 连接 VPN   up.jpg
+            ipsec status/statusall      # 查看状态   statusall.jpg
+            ping 200.1.1.1              # lan1-pc
