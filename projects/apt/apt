@@ -1,0 +1,77 @@
+流程
+
+    镜像源 (/etc/apt/sources.list)
+    
+     |   apt-get update
+     V
+    
+    软件列表 (/var/lib/apt/lists/)
+    
+     |   apt-get install xxx
+     V
+    
+    软件包 (/var/cache/apt/archives/)
+
+
+镜像源
+
+    第一字段 :
+        deb 与 deb-src - 软件包 和 源码
+
+    第二字段 :
+        软件库有效路径
+
+    第三字段 :
+        mantic, jammy 等 - ubuntu 发行版( [lsb_release -a | cat /etc/os-release] )
+        注 - 每隔 6 个月发布一次版本, 即 4 月和 10 月, 字段就是版本别名
+             每隔 2 年发布一次 LTS, long term support
+
+    后续字段 : 镜像源提供的软件模块
+       main        - 官方支持维护, 完全自由的软件 
+       restricted  - 官方支持维护, 不完全自由的软件
+       universe    - 官方不支持维护, 全靠社区支持
+       muitiverse  - 非自由软件, 完全不提供支持与补丁
+        
+
+    示例:
+        deb http://cn.archive.ubuntu.com/ubuntu/ mantic main restricted
+        deb-src http://cn.archive.ubuntu.com/ubuntu/ mantic main restricted
+
+常用命令
+
+   已安装的软件列表
+       apt list --installed
+
+   根据关键字查询包名
+       apt-cache search mysql-client
+
+   软件包和镜像源
+       apt-cache [madison|policy] mysql-server
+
+   软件包详情
+      apt-cache show mysql-server
+
+   卸载且删除配置文件
+      apt-get --purge remove xxx
+
+   删除下载的文件
+      apt-get clean
+
+   下载软件及依赖, 而不安装
+       apt-get install --download-only mysql-server
+
+   安装软件及其依赖
+
+离线安装
+       
+    1. 准备环境
+    
+        安装虚拟机 (Ubuntu 22.04.3 LTS)
+    
+    2. apt 安装软件, 学习安装顺序并保存安装包
+    
+       apt-lrn.sh
+    
+    3. 重新准备没有安装软件的虚拟环境
+    
+    4. 编写脚本, 根据学习结果安装软件

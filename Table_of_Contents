@@ -31,6 +31,9 @@ VPN
 iptables 规则
     projects/iptables
 
+学习 apt 离线安装
+    projects/apt/
+
 Shell 脚本
 
     projects/shell/ 
