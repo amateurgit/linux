@@ -31,6 +31,10 @@ VPN
 iptables 规则
     projects/iptables
 
+Shell 脚本
+
+    projects/shell/ 
+
 基本概念
    projects/basic/
 
