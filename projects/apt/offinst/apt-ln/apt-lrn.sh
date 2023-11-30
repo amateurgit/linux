@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 set -e
@@ -19,9 +20,28 @@ apt-get update
 
 apt-get clean
 
-# 开始学习
+# 学习
 apt-get install -y $app > $app/.aptlog
 cp /var/cache/apt/archives/*.deb $app/debs
-cat $app/.aptlog | grep "Preparing to unpack" | sed -e 's/^.*\/[0-9]\+-\(.*\.deb\).*$/\1/g' > $app/order
+
+# 依赖包列表 debs
+tmpdebs=$(find ${app}/debs/ -name *.deb)
+i=0
+for deb in ${tmpdebs[*]};do
+    debs[i]=$(basename ${deb})
+    i=${i}+1
+done
+
+# 依赖顺序 order
+cat $app/.aptlog | grep "Preparing to unpack" > $app/.odr
+while read line;do
+    for deb in ${debs[*]};do
+        if [[ ${line} =~ ${deb} ]];then
+            echo ${deb} >> $app/order
+        fi
+    done
+done < $app/.odr
+rm -rf $app/.odr
 
 echo "已成功学习到安装 ${app} 需要的 debs 和 依赖关系!"
+
