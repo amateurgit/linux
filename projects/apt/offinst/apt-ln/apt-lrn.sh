@@ -21,7 +21,8 @@ apt-get update
 apt-get clean
 
 # 学习
-apt-get install -y $app > $app/.aptlog
+export DEBIAN_FRONTEND=noninteractive
+apt-get install -yq $app > $app/.aptlog
 cp /var/cache/apt/archives/*.deb $app/debs
 
 # 依赖包列表 debs
@@ -36,7 +37,7 @@ done
 cat $app/.aptlog | grep "Preparing to unpack" > $app/.odr
 while read line;do
     for deb in ${debs[*]};do
-        if [[ ${line} =~ ${deb} ]];then
+        if [[ "${line}" =~ "${deb}" ]];then
             echo ${deb} >> $app/order
         fi
     done
