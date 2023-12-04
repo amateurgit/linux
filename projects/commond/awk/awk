@@ -14,3 +14,6 @@
 
     /* 打印所有用户名 */
     awk -F: '{print $1}' /etc/passwd          /* -F 指定字段分隔符, 默认是空格 */
+
+    /* BEGIN - END 用法 */
+    awk -f sum.awk score                      /* BEGIN - 文件处理前, 对变量进行初始化; END - 文件处理完, 执行某些格式化脚本 */
