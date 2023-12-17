@@ -26,3 +26,7 @@
     /* 查找包含某个字符串的行, 进行字符串替换 */
     sed -i "s/oldstring/newstring/" filename             /* -i - 直接修改读取的文件 */
 
+    /* 查找包含某个字符串的行, 整行替换 */
+    linenum=$(cat /etc/default/grub | grep -n "GRUB_CMDLINE_LINUX=" | awk -F: '{print $1}')
+    sed "${linenum}c GRUB_CMDLINE_LINUX=\"net\.ifnames=0 biosdevname=0\""                      /* 网卡名改成 eth0 */
+    grub-mkconfig -o /boot/grub/grub.cfg
