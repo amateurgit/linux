@@ -2,7 +2,7 @@
     apt-get remove docker docker-engine docker.io containerd runc
 
 安装依赖
-    apt-get install apt-transport-https ca-certificates curl gnu
+    apt-get install apt-transport-https ca-certificates curl gnupg
 
 添加官方密钥
     curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
