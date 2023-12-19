@@ -21,7 +21,7 @@
     docker commit -m="sources.list;Dependency library;vim" -a sjwang blissful_faraday ubuntu:platform
 
 打包镜像
-   tar -cvpzf centmgmt.tar --exclude=proc --exclude=sys --exclude=run --exclude=centmgmt.tar .
+   tar -cvpzf centmgmt.tar --exclude=/proc --exclude=/sys --exclude=/run --exclude=centmgmt.tar /
 
 导入导出
     导入容器
