@@ -2,6 +2,8 @@
  *  libssh2 提供了远程登录 server 的方法
  *
  *  环境 :
+ *    # 依赖库 
+        apt-get install libssl-dev zlib1g-dev
  *    # libssh2 依赖 openssl
  *        ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl/ssl
  *        make
