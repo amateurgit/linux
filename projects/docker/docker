@@ -10,6 +10,13 @@
     t - 在新容器内指定一个伪终端或终端
     d - 后台运行
 
+    --restart=on|on-failure|always  开机自启
+        on           - 容器退出时, 不重启容器
+        on-failure:5 - 非 0 状态退出时, 重启容器, 最多重启 5 次
+        always       - 无论容器退出状态如何, 都重启容器
+
+    docker update --restart=always  # 已运行的容器添加参数
+
 查看实例
     docker ps           # 正在运行的实例
     docker ps -a        # 查看所有实例
