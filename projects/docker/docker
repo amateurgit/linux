@@ -42,4 +42,5 @@
 
     导入镜像
         docker load < centmgmt.tar
+        cat freeradius-mysql.tar | docker import - freeradius-mysql  # 导入镜像的另一种方式
 
