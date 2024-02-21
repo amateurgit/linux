@@ -1,0 +1,35 @@
+*************************** 1. row ***************************
+                 customer: 简网天津测试
+             upgrade_type: ips
+ valid_upgrade_time_start: 2024-02-01 12:00:00
+   valid_upgrade_time_end: 2025-01-31 00:00:00
+HW_mantainence_time_start: 2024-02-01 00:00:00
+  HW_mantainence_time_end: 2025-01-31 00:00:00
+*************************** 2. row ***************************
+                 customer: 简网天津测试
+             upgrade_type: vas
+ valid_upgrade_time_start: 2000-01-01 00:00:00
+   valid_upgrade_time_end: 2099-01-01 00:00:00
+HW_mantainence_time_start: 2024-02-01 00:00:00
+  HW_mantainence_time_end: 2025-01-31 00:00:00
+*************************** 3. row ***************************
+                 customer: 简网天津测试
+             upgrade_type: ip_blacklist
+ valid_upgrade_time_start: 2000-01-01 00:00:00
+   valid_upgrade_time_end: 2099-01-01 00:00:00
+HW_mantainence_time_start: 2024-02-01 00:00:00
+  HW_mantainence_time_end: 2025-01-31 00:00:00
+*************************** 4. row ***************************
+                 customer: 简网天津测试
+             upgrade_type: attack_desc
+ valid_upgrade_time_start: 2000-01-01 00:00:00
+   valid_upgrade_time_end: 2099-01-01 00:00:00
+HW_mantainence_time_start: 2024-02-01 00:00:00
+  HW_mantainence_time_end: 2025-01-31 00:00:00
+*************************** 5. row ***************************
+                 customer: 简网天津测试
+             upgrade_type: av
+ valid_upgrade_time_start: 2024-02-01 12:00:00
+   valid_upgrade_time_end: 2025-01-31 00:00:00
+HW_mantainence_time_start: 2024-02-01 00:00:00
+  HW_mantainence_time_end: 2025-01-31 00:00:00
