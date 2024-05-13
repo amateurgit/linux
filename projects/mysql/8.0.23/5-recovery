@@ -1,0 +1,21 @@
+数据恢复
+
+1. 修改配置文件
+
+    vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+    innodb_force_recovery = N
+
+2. 重启服务
+
+    service stop mysql
+    service start mysql
+
+3. 恢复配置文件
+
+   # innodb_force_recovery = N
+
+4. 重启服务
+
+    service stop mysql
+    service start mysql
