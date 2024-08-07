@@ -43,7 +43,11 @@ iptables 规则
 
 Shell 脚本
 
-    projects/shell/ 
+    projects/shell/
+
+lua 脚本
+
+    projects/lua/
 
 基本概念
    projects/basic/
