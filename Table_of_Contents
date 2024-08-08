@@ -54,3 +54,7 @@ lua 脚本
 
        进程权限与文件权限模式字
           process_priviledge
+
+开机自启动
+
+    projects/autorun/
