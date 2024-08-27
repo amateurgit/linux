@@ -1,0 +1,14 @@
+/* 打开文件系统描述文件 */
+setmntent
+
+/* 读文件系统描述文件 */
+getmntent
+
+/* 文件系统描述文件添加记录 */
+addmntent
+
+/* 关闭文件 */
+endmntent
+
+/* 查询文件系统相关信息 */
+statfs
