@@ -1,0 +1,9 @@
+IPS 和 IDS 的区别
+
+    IPS(Intrusion Prevention System)
+    
+        跨接在网络链路上, 检测并阻止攻击
+    
+    IDS(Intrusion Detection System)
+    
+        旁路监听模式, 检测攻击, 发出告警
