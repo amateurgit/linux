@@ -18,6 +18,10 @@ do
     echo $i
 done
 
+for (( i = 0; i < ${#week[*]}; i++ ));do
+    echo "${week[${i}]}"
+done
+
 #
 #  while 结束条件是 false
 #  until 结束条件是 true
