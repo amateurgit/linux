@@ -1,0 +1,22 @@
+1. 相关变量
+show variables like '%log_bin%'
+
++---------------------------------+-------+
+| Variable_name                   | Value |
++---------------------------------+-------+
+| log_bin                         | OFF   |    /* 开关 */
+| log_bin_basename                |       |    /* 基本文件名, 追加标识表示每个文件 */
+| log_bin_index                   |       |    /* 索引文件, 用于管理所有 binlog 文件 */
+| log_bin_trust_function_creators | OFF   |    /* 限制存储过程的创建、修改和调用, 存储函数可能导致主从数据不一致 */
+| log_bin_use_v1_row_events       | OFF   |    /* 已弃用 */
+| sql_log_bin                     | ON    |    /* 记录变更 sql */
++---------------------------------+-------+
+
+2. 查询
+
+3. 删除
+
+    reset master      /* 手动删除所有的 binlog 日志 */
+    reset slave       /* 删除 slave 日志  */
+    purge master logs before '2012-03-30 17:20:00'
+    purge master logs to 'binlog.000002'                 /* 删除指定日志文件的日志索引中 binlog 日志文件 */

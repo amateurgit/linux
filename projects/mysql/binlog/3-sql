@@ -1,0 +1,17 @@
+###########################################################################
+#   master 执行以下命令
+#                                                                         #
+#   mysql -uroot -p cm < cm_logo.sql                            #
+#                                                                         #
+###########################################################################
+
+USE `cm`;
+
+CREATE TABLE IF NOT EXISTS logo (
+  `id` varchar(36) NOT NULL default '' comment '厂商简写, 比如 cgw 表示长城网',
+  `title` varchar(128) NOT NULL default '' comment '平台名称, 比如 网络接入管理平台',
+  `path` varchar(128) NOT NULL default '' comment 'LOGO 的相对路径',
+  PRIMARY KEY (`id`)
+) ENGINE = INNODB DEFAULT CHARSET=utf8;
+
+INSERT IGNORE INTO logo (`id`, `title`, `path`) VALUES ('cgw', '网络接入管理平台', '/mgmt/images/logo_index_cgw.png');
