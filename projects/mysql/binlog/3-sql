@@ -1,10 +1,10 @@
 ###########################################################################
-#   master 执行以下命令
+#   master 执行以下命令                                                   #
 #                                                                         #
-#   mysql -uroot -p cm < cm_logo.sql                            #
+#   mysql -uroot -p cm < cm_logo.sql                                      #
 #                                                                         #
 ###########################################################################
-
+CREATE DATABASE IF NOT EXISTS cm CHARACTER SET utf8;
 USE `cm`;
 
 CREATE TABLE IF NOT EXISTS logo (

@@ -1,9 +1,7 @@
 # master 配置
 # Step 1 : 命令行配置
-CREATE DATABASE IF NOT EXISTS cm CHARACTER SET utf8;
 CREATE USER 'slave'@'10.10.10.12' IDENTIFIED BY '123456';
 GRANT ALL ON *.* TO 'slave'@'10.10.10.12';
-GRANT PROCESS ON *.* TO 'slave'@'10.10.10.12';
 flush privileges;
 
 # Step 2
@@ -32,34 +30,18 @@ service mysql restart
 
 ############################ slave 配置 #########################
 # Step 1 : 同步数据
-CREATE DATABASE IF NOT EXISTS cm CHARACTER SET utf8;
-mysqldump -h10.10.10.10 -uslave -p cm > cm.sql
+mysqldump -h10.10.10.10 -uslave -p --databases cm > cm.sql
 mysql -h7127.0.0.1 -uroot -p cm < cm.sql
 
 # Step 2 : 配置
 [mysqld]
 
 server-id = 2                          # slave 库设置为 2
-log_bin = /var/lib/mysql/mysql-bin     # 日志文件名前缀定义
-binlog_expire_logs_seconds = 2592000   # 保留时间
-max_binlog_size   = 100M
-
-# 记录哪些数据库的日志
-binlog_do_db = cm
-
-# 忽略哪些库的日志
-binlog-ignore-db = information_schema
-binlog-ignore-db = mysql
-binlog-ignore-db = performance_schema
-
-binlog_format = mixed
-
 replicate-do-db = cm                  # 复制的数据库名, 和 master 保持一致
 
 # log-slave-updates  级联参数, 从库作为其他设备主库时设置
 
 slave-skip-errors = all
-
 slave-net-timeout = 60
 
 # Step 3 : 重启服务
@@ -71,3 +53,12 @@ CHANGE MASTER TO MASTER_HOST='10.10.10.10',MASTER_USER='slave',MASTER_PASSWORD='
 START SLAVE;
 SHOW SLAVE STATUS\G
 
+.
+.
+.
+
+Slave_IO_Running: Yes
+Slave_SQL_Running: Yes
+.
+.
+.
