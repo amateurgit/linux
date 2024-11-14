@@ -1,0 +1,133 @@
+Action
+
+    alert
+
+    drop
+
+Header
+
+    协议 源地址 源端口 -> 目的地址 目的端口    
+
+Options
+
+   msg
+
+   content
+
+   classtype
+
+   sid
+
+   rev
+
+   metadata
+
+
+Example :
+
+    请求
+
+        curl http://testmynids.org/uid/index.html
+
+    响应
+
+GET /uid/index.html HTTP/1.1
+Host: testmynids.org
+User-Agent: curl/8.2.1
+Accept: */*
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 39
+Connection: keep-alive
+Date: Wed, 13 Nov 2024 20:27:03 GMT
+Last-Modified: Sun, 26 May 2019 13:50:40 GMT
+ETag: "c7d0a1ea4ab73fa3e7cd72fc1eb5b492"
+x-amz-server-side-encryption: AES256
+Accept-Ranges: bytes
+Server: AmazonS3
+X-Cache: Hit from cloudfront
+Via: 1.1 d6b84a5611c3f3ea786cd180e1d7ebee.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: NRT12-P1
+X-Amz-Cf-Id: qYAnKJVuMM9xdiKri_cZBF4fGrG6AqgFI6Wx3ZdRVeAfy3F3w3jAHQ==
+Age: 48092
+
+uid=0(root) gid=0(root) groups=0(root)
+    
+
+    匹配的规则
+
+alert ip any any -> any any (msg:"GPL ATTACK_RESPONSE id check returned root"; content:"uid=0|28|root|29|"; classtype:bad-unknown; sid:2100498; rev:7; metadata:created_at 2010_09_23, updated_at 2019_07_26;)
+
+        响应内容包含 "uid=0" 字符串, 与 content 匹配成功
+
+
+    日志
+
+        fast.log
+11/14/2024-16:46:43.418521  [**] [1:2100498:7] GPL ATTACK_RESPONSE id check returned root [**] [Classification: Potentially Bad Traffic] [Priority: 2] {TCP} 18.64.123.8:80 -> 10.10.10.129:35138
+
+       eve.log
+{
+  "timestamp": "2024-11-14T16:33:27.414580+0800",
+  "flow_id": 2115520811852095,
+  "in_iface": "ens33",
+  "event_type": "alert",
+  "src_ip": "18.64.123.74",
+  "src_port": 80,
+  "dest_ip": "10.10.10.129",
+  "dest_port": 60894,
+  "proto": "TCP",
+  "pkt_src": "wire/pcap",
+  "tx_id": 0,
+  "alert": {
+    "action": "allowed",
+    "gid": 1,
+    "signature_id": 2100498,
+    "rev": 7,
+    "signature": "GPL ATTACK_RESPONSE id check returned root",
+    "category": "Potentially Bad Traffic",
+    "severity": 2,
+    "metadata": {
+      "created_at": [
+        "2010_09_23"
+      ],
+      "updated_at": [
+        "2019_07_26"
+      ]
+    }
+  },
+  "http": {
+    "hostname": "testmynids.org",
+    "url": "/uid/index.html",
+    "http_user_agent": "curl/8.2.1",
+    "http_content_type": "text/html",
+    "http_method": "GET",
+    "protocol": "HTTP/1.1",
+    "status": 200,
+    "length": 39
+  },
+  "files": [
+    {
+      "filename": "/uid/index.html",
+      "gaps": false,
+      "state": "CLOSED",
+      "stored": false,
+      "size": 39,
+      "tx_id": 0
+    }
+  ],
+  "app_proto": "http",
+  "direction": "to_client",
+  "flow": {
+    "pkts_toserver": 5,
+    "pkts_toclient": 4,
+    "bytes_toserver": 381,
+    "bytes_toclient": 772,
+    "start": "2024-11-14T16:33:27.295950+0800",
+    "src_ip": "10.10.10.129",
+    "dest_ip": "18.64.123.74",
+    "src_port": 60894,
+    "dest_port": 80
+  }
+}
