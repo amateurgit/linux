@@ -15,34 +15,34 @@
 
 #define SHM_PATH "."
 #define PROJ_ID  5
-#define SHM_SIZE 4096 * 2	/* 页大小的整数倍 PAGE_SIZE : 4096 */
+#define SHM_SIZE 4096 * 2   /* 页大小的整数倍 PAGE_SIZE : 4096 */
 
 int main(int argc, char *argv[])
 {
     key_t key = ftok(SHM_PATH, PROJ_ID);
     if (-1 == key)
     {
-	perror("ftok error");
+        perror("ftok error");
 
-	return -1;
+        return -1;
     }
 
     /* 获取或创建 */
     int shmid = shmget(key, SHM_SIZE, IPC_CREAT | 0777);  /* 如果不存在, 则创建 */
     if (-1 == shmid)
     {
-	perror("shmget error\n");
+        perror("shmget error\n");
 
-	return -1;
+        return -1;
     }
 
     /* 映射共享内存到进程空间 */
     char *shmaddr = shmat(shmid, NULL, 0);
     if ((void *)-1 == shmaddr)
     {
-	perror("shmat error\n");
+        perror("shmat error\n");
 
-	return -1;
+        return -1;
     }
 
     /* 读共享内存 */
@@ -56,28 +56,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
