@@ -1,0 +1,2 @@
+# 提交 html 文件
+curl -X POST -H "Content-Type: text/html" --data-binary @index.html http://192.168.1.61
