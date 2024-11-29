@@ -1,0 +1,27 @@
+调试命令
+
+n：执行下一行代码。
+
+s：进入子函数调用。
+
+l：列出当前代码行的周围的源代码。
+
+p：打印变量的值。
+
+h：显示帮助信息。
+
+q：退出调试器
+
+
+测试脚本
+
+perl -d script.pl
+
+#!/usr/bin/perl -d
+
+use strict;
+use warnings;
+
+my $var = 10;
+my $result = $var + 5;
+print "Result is $result\n";
