@@ -1,0 +1,11 @@
+option
+
+    选项说明
+
+write_file.pl
+
+   打开文件并写入内容
+
+debug
+
+    脚本调试

@@ -1,0 +1,7 @@
+调试模式
+
+    #!/usr/bin/perl -d
+
+警告模式
+
+    #!/usr/bin/perl -w
