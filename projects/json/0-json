@@ -1,3 +1,21 @@
-下载源代码 ---> 编译 ---> 库文件和头文件
-
 官网 : http://json-c.github.io/json-c/
+
+Step 1 下载
+
+    git clone https://github.com/json-c/json-c.git
+
+Step 2 编译和安装 json 库
+
+    mkdir json-c-build
+
+    cd json-c-build
+
+    cmake ../json-c
+
+    make
+
+    make install
+
+Step 3 编译程序
+
+    Makefile
