@@ -1,0 +1,9 @@
+vector 是 C++98 STL 特性, 动态数组
+
+array 是 C++11 特性, 固定长度的数组
+
+示例 :
+
+    g++ array.cpp
+
+    ./a.out
