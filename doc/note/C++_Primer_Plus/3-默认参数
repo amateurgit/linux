@@ -1,0 +1,7 @@
+函数原型中给出参数默认值
+
+示例 :
+
+    g++ default_args.cpp
+
+    ./a.out
