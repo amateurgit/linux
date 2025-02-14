@@ -1,3 +1,25 @@
+/*
+   epoll 网络编程模型
+
+       1. 创建 epool
+
+           epoll_create1
+
+       2. 初始化事件, 并关联 epool
+
+           epoll_ctl
+
+       3. 等待事件的发生
+
+           epoll_wait
+
+       4. 业务处理
+
+           处理客户端连接
+
+           处理业务
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -35,10 +57,38 @@ int setnobloking(int fd)
     return 0;
 }
 
-int main(int argc, char *argv[])
-{
-    int listen_sock, conn_sock;
-    struct sockaddr_in saddr, caddr;
+/* 初始化套接口 */
+static int __create_sockfd(void) {
+
+    int sockfd = -1;
+    struct sockaddr_in saddr;
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) {
+        return -1;
+    }
+
+    bzero(&saddr, sizeof(struct sockaddr_in));
+    saddr.sin_family = AF_INET;
+    saddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    saddr.sin_port = htons(PORT);
+
+    if ( bind(sockfd, (struct sockaddr *)&saddr, sizeof(struct sockaddr_in)) < 0 ) {
+        close(sockfd);
+        return -1;
+    }
+
+    if ( listen(sockfd, BACKLOG) < 0 ) {
+        close(sockfd);
+        return -1;
+    }
+
+    return sockfd;
+}
+
+int main(int argc, char *argv[]) {
+    int listen_sock = -1, conn_sock;
+    struct sockaddr_in caddr;
     socklen_t addrlen = sizeof(struct sockaddr_in);
 
     int nfds, epollfd;
@@ -49,112 +99,75 @@ int main(int argc, char *argv[])
     ssize_t sz;
     char buff[1024];
 
-    listen_sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (listen_sock < 0)
-    {
-        perror("listen");
+    /* 初始化网络套接口 */
+    listen_sock = __create_sockfd();
+    if (listen_sock < 0) {
+        printf("网络套接口初始化失败\n");
         exit(EXIT_FAILURE);
     }
 
-    bzero(&saddr, addrlen);
-    saddr.sin_family = AF_INET;
-    saddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    saddr.sin_port = htons(PORT);
-
-    if (bind(listen_sock, (struct sockaddr *)&saddr, addrlen) < 0)
-    {
-        perror("bind");
-        close(listen_sock);
-        exit(EXIT_FAILURE);
-    }
-
-    if (listen(listen_sock, BACKLOG) < 0)
-    {
-        perror("listen");
-        close(listen_sock);
-        exit(EXIT_FAILURE);
-    }
-
+    /* 1. 创建 epoll */
     epollfd = epoll_create1(0);
-    if (-1 == epollfd)
-    {
-        perror("epoll_create1");
+    if (-1 == epollfd) {
         close(listen_sock);
         exit(EXIT_FAILURE);
     }
 
-    ev.events = EPOLLIN;
-    ev.data.fd = listen_sock;
-    if (-1 == epoll_ctl(epollfd, EPOLL_CTL_ADD, listen_sock, &ev))
-    {
-        perror("epoll_ctl : listen_sock");
-        close(epollfd);
-        close(listen_sock);
-        exit(EXIT_FAILURE);
-    }
-
-    for (;;)
-    {
-        nfds = epoll_wait(epollfd, events, MAX_EVENTS, -1);
-        if (-1 == nfds)
-        {
-            perror("epoll_wait");
-            close(epollfd);
-            close(listen_sock);
-            exit(EXIT_FAILURE);
+    do {
+        /* 2. 初始化 epoll 事件 */
+        ev.events = EPOLLIN;
+        ev.data.fd = listen_sock;
+        if (-1 == epoll_ctl(epollfd, EPOLL_CTL_ADD, listen_sock, &ev)) {
+            break;
         }
 
-        for (n = 0; n < nfds; ++n)
+        for (;;)
         {
-            sockfd = events[n].data.fd;
-            if (sockfd == listen_sock)
-            {
-                conn_sock = accept(listen_sock, (struct sockaddr *)&caddr, &addrlen);
-                if (conn_sock < 0)
-                {
-                    perror("accept");
-                    close(epollfd);
-                    close(listen_sock);
-                    exit(EXIT_FAILURE);
-                }
-
-                if (setnobloking(conn_sock) < 0)
-                {
-                    perror("setnobloking");
-                    close(epollfd);
-                    close(listen_sock);
-                    exit(EXIT_FAILURE);
-                }
-
-                ev.events = EPOLLIN | EPOLLET;
-                ev.data.fd = conn_sock;
-                if (-1 == epoll_ctl(epollfd, EPOLL_CTL_ADD, conn_sock, &ev))
-                {
-                    perror("epoll_wait : conn_sock");
-                    close(epollfd);
-                    close(listen_sock);
-                    exit(EXIT_FAILURE);
-                }
+            /* 3. 等待事件的发生 */
+            nfds = epoll_wait(epollfd, events, MAX_EVENTS, -1);
+            if (-1 == nfds) {
+                break;
             }
-            else
+
+            /* 4. 事件处理 */
+            for (n = 0; n < nfds; ++n)
             {
-                sz = read(sockfd, buff, sizeof(buff));
-                if (sz > 0)
+                sockfd = events[n].data.fd;
+                if (sockfd == listen_sock)  /* 处理客户端连接  */
                 {
-                    snprintf(buff, sizeof(buff), "%ld bytes altogether\n", sz - 1);
-                    write(sockfd, buff, strlen(buff) + 1);
+                    conn_sock = accept(listen_sock, (struct sockaddr *)&caddr, &addrlen);
+                    if (conn_sock < 0)
+                        break;
+
+                    if (setnobloking(conn_sock) < 0)
+                        break;
+
+                    ev.events = EPOLLIN | EPOLLET;
+                    ev.data.fd = conn_sock;
+                    if (-1 == epoll_ctl(epollfd, EPOLL_CTL_ADD, conn_sock, &ev))
+                        break;
                 }
-                else if (0 == sz)
+                else  /* 业务处理 */
                 {
-                    printf("对端 socket 已经关闭\n");
-                }
-                else
-                {
-                    perror("read");
+                    sz = read(sockfd, buff, sizeof(buff));
+                    if (sz > 0)
+                    {
+                        snprintf(buff, sizeof(buff), "%ld bytes altogether\n", sz - 1);
+                        write(sockfd, buff, strlen(buff) + 1);
+                    }
+                    else if (0 == sz)
+                    {
+                        printf("对端 socket 已经关闭\n");
+                    }
+                    else
+                    {
+                        printf("read");
+                    }
                 }
             }
         }
-    }
+
+    } while(0);
 
     close(epollfd);
     close(listen_sock);
