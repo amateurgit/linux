@@ -1,0 +1,17 @@
+flag.Parse() 用于解析命令行参数
+
+编写源码
+
+    src/proj/flag/main.go
+
+编译
+
+    go build main.go
+
+运行
+
+    # 查看帮助信息
+    ./main -h
+
+    # 传参并打印 
+    ./main -ipaddr 192.168.1.100
