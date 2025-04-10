@@ -1,0 +1,23 @@
+概述
+
+    go.mod 文件记录当前项目所有依赖包的 git 仓库地址和版本号, 解决依赖管理问题
+
+开启 mod 功能
+
+   go env -w GO111MODULE=auto
+
+   go env -w GOPROXY=https://goproxy.cn,direct
+
+使用方法
+
+    # 初始化模块
+    go mod init main
+
+    # 编写源码
+    proj/server.go
+
+    # 更新依赖
+    go mod tidy
+
+    # 执行程序
+    go run server.go  

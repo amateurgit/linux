@@ -1,0 +1,29 @@
+1. 编写源代码
+
+    hello.go
+
+2. 编译
+    
+    编译 Linux 版本
+
+        go env -w GOOS=linux
+
+        go build hello.go
+
+
+    编译 windows 版本
+
+        go env -w GOOS=windows
+
+        go build hello.go
+
+3. 运行
+
+   运行源码
+
+       go run hello.go
+
+
+   可执行程序
+
+       ./hello  或 ./hello.exe

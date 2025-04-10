@@ -1,0 +1,21 @@
+1. 软件下载
+
+    https://golang.google.cn/dl/
+
+    go1.24.1.linux-amd64.tar.gz
+
+2. 解压
+
+    tar -xvf go1.24.1.linux-amd64.tar.gz
+
+    mv go /usr/local/
+
+3. 配置环境变量
+
+    export PATH=$PATH:/usr/local/go/bin
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOPATH/bin
+
+4. 验证
+
+    go version
